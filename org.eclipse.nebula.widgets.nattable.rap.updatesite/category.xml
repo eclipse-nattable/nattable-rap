@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <bundle id="org.eclipse.nebula.widgets.nattable.rap">
+      <category name="nattable-rap"/>
+   </bundle>
+   <bundle id="org.eclipse.nebula.widgets.nattable.rap.source">
+      <category name="nattable-rap"/>
+   </bundle>
+   <category-def name="nattable-rap" label="NatTable RAP">
+      <description>
+         Fragment for NatTable Core to make it work with RAP.
+      </description>
+   </category-def>
+</site>

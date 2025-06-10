@@ -1,0 +1,32 @@
+name: Java CI with Maven
+
+on:
+  pull_request:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    name: Java 21 compile
+    steps:
+    - name: Git Checkout
+      uses: actions/checkout@v4
+    - name: Set up JDKs
+      uses: actions/setup-java@v4
+      with:
+        java-version: |
+          21
+        distribution: 'temurin' # See 'Supported distributions' for available options
+        cache: maven
+    - name: Set up Maven
+      uses: stCarolas/setup-maven@v5
+      with:
+        maven-version: 3.9.8
+    - name: Install xvfb
+      run: sudo apt-get install xvfb
+    - name: Build NatTable RAP with Javadoc
+      env:
+       JAVA_HOME: ${{ env.JAVA_HOME_21_X64 }}
+      run: | 
+        cp .github/toolchains.xml ~/.m2/toolchains.xml
+        xvfb-run mvn clean compile javadoc:aggregate verify

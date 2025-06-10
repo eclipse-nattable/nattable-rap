@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="org.eclipse.nebula.widgets.nattable.examples.runner.NatTableExampleApplication">
+   <service>
+      <provide interface="org.eclipse.rap.rwt.application.ApplicationConfiguration"/>
+   </service>
+   <implementation class="org.eclipse.nebula.widgets.nattable.examples.runner.NatTableExampleApplication"/>
+</scr:component>

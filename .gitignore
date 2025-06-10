@@ -1,0 +1,15 @@
+.DS_Store
+
+.metadata/
+bin/
+dependencies/
+target/
+
+org.eclipse.nebula.widgets.nattable.rap.examples/myState.properties
+org.eclipse.nebula.widgets.nattable.rap.examples/natTable.properties
+org.eclipse.nebula.widgets.nattable.rap.examples/src/examples.index
+org.eclipse.nebula.widgets.nattable.rap.examples/src/**/Issue*.java
+
+.polyglot*
+
+.project

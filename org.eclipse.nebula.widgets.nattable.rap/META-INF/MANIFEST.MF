@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: NatTable RAP Fragment
+Bundle-SymbolicName: org.eclipse.nebula.widgets.nattable.rap
+Bundle-Version: 2.6.0.qualifier
+Fragment-Host: org.eclipse.nebula.widgets.nattable.core;bundle-version="[2.6.0,3.0.0)"
+Import-Package: net.bytebuddy;version="[1.17.0,2.0.0)",
+ net.bytebuddy.agent;version="[1.17.0,2.0.0)",
+ net.bytebuddy.asm;version="[1.17.0,2.0.0)",
+ net.bytebuddy.description.type;version="[1.17.0,2.0.0)",
+ net.bytebuddy.dynamic;version="[1.17.0,2.0.0)",
+ net.bytebuddy.dynamic.loading;version="[1.17.0,2.0.0)",
+ net.bytebuddy.implementation;version="[1.17.0,2.0.0)",
+ net.bytebuddy.implementation.bind.annotation;version="1.17.2",
+ net.bytebuddy.matcher;version="[1.17.0,2.0.0)",
+ org.eclipse.rap.json;version="[4.0.0,5.0.0)",
+ org.eclipse.rap.rwt;version="[4.0.0,5.0.0)",
+ org.eclipse.rap.rwt.internal.lifecycle;version="[4.0.0,5.0.0)",
+ org.eclipse.rap.rwt.internal.protocol;version="[4.0.0,5.0.0)",
+ org.eclipse.rap.rwt.remote;version="[4.0.0,5.0.0)",
+ org.eclipse.rap.rwt.scripting;version="[4.0.0,5.0.0)",
+ org.eclipse.rap.rwt.service;version="[4.0.0,5.0.0)",
+ org.eclipse.rap.rwt.widgets;version="[4.0.0,5.0.0)",
+ org.eclipse.swt.internal.events,
+ org.eclipse.swt.internal.widgets.canvaskit
+Automatic-Module-Name: org.eclipse.nebula.widgets.nattable.rap
+Bundle-RequiredExecutionEnvironment: JavaSE-21
