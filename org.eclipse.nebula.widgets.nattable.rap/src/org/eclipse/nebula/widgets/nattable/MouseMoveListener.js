@@ -21,7 +21,7 @@ var handleEvent = function(event) {
     var rowDragStartY = event.widget.getData("rowDragStartY");
 
     // only change the cursor if a header is available and if no column or row is currently resized
-    if (!columnPositionToResize && !rowPositionToResize) {
+    if (columnPositionToResize === null && rowPositionToResize === null) {
         let chd = columnHeaderDimensions ? JSON.parse(columnHeaderDimensions) : null;
         let rhd = rowHeaderDimensions ? JSON.parse(rowHeaderDimensions) : null;
         if (chd && event.y > chd[0] && event.y < chd[1]) {

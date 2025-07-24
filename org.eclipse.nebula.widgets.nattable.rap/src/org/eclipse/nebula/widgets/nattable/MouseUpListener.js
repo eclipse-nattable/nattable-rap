@@ -15,7 +15,7 @@ var handleEvent = function(event) {
     
     var columnPositionToResize = event.widget.getData("columnPositionToResize");
     var initialResizeX = event.widget.getData("initialResizeX");
-    if (columnPositionToResize) {
+    if (columnPositionToResize !== null) {
 
         var widthDiff = event.x - initialResizeX;
 
@@ -40,7 +40,7 @@ var handleEvent = function(event) {
 
     var rowPositionToResize = event.widget.getData("rowPositionToResize");
     var initialResizeY = event.widget.getData("initialResizeY");
-    if (rowPositionToResize) {
+    if (rowPositionToResize !== null) {
 
         var heightDiff = event.y - initialResizeY;
 
@@ -64,7 +64,7 @@ var handleEvent = function(event) {
     }
 
     var columnDragStartX = event.widget.getData("columnDragStartX");
-    if (columnDragStartX) {
+    if (columnDragStartX !== null) {
         var connection = rwt.remote.Connection.getInstance();
         connection.getMessageWriter().appendNotify(
             event.widget.getData("control"),
@@ -84,7 +84,7 @@ var handleEvent = function(event) {
     }
     
     var rowDragStartY = event.widget.getData("rowDragStartY");
-    if (rowDragStartY) {
+    if (rowDragStartY !== null) {
         var connection = rwt.remote.Connection.getInstance();
         connection.getMessageWriter().appendNotify(
             event.widget.getData("control"),
