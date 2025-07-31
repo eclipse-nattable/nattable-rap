@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.eclipse.nebula.widgets.nattable</groupId>
-	<artifactId>parent-rap</artifactId>
-	<version>2.6.0-SNAPSHOT</version>
+    <groupId>org.eclipse.nebula.widgets.nattable</groupId>
+    <artifactId>parent-rap</artifactId>
+    <version>2.6.0-SNAPSHOT</version>
 
-	<packaging>pom</packaging>
+    <packaging>pom</packaging>
 
-	<name>Nebula NatTable RAP</name>
-	<description>A powerful and flexible SWT table/grid widget that is built to handle very large data sets, real-time updates, dynamic styling, and more.</description>
-	<url>https://projects.eclipse.org/projects/technology.nebula.nattable</url>
+    <name>Nebula NatTable RAP</name>
+    <description>A powerful and flexible SWT table/grid widget that is built to handle very large data sets, real-time updates, dynamic styling, and more.</description>
+    <url>https://projects.eclipse.org/projects/technology.nebula.nattable</url>
     
     <licenses>
         <license>
@@ -20,49 +20,49 @@
         </license>
     </licenses>
 
-	<developers>
+    <developers>
     	<developer>
-			<name>Dirk Fauth</name>
-			<email>dirk.fauth@googlemail.com</email>
-		</developer>
-	</developers>
+            <name>Dirk Fauth</name>
+            <email>dirk.fauth@googlemail.com</email>
+        </developer>
+    </developers>
   
     <scm>
-        <connection>scm:git:git://github.com/eclipse-nebula-nattable/nattable.git</connection>
-        <developerConnection>scm:git:https://github.com/eclipse-nebula-nattable/nattable.git</developerConnection>
-        <url>https://github.com/eclipse-nebula-nattable/nattable.git</url>
+        <connection>scm:git:git://github.com/eclipse-nattable/nattable-rap.git</connection>
+        <developerConnection>scm:git:https://github.com/eclipse-nattable/nattable-rap.git</developerConnection>
+        <url>https://github.com/eclipse-nattable/nattable-rap.git</url>
     </scm>
 
 	<modules>
-		<module>target-platform-rap</module>
-		<module>org.eclipse.nebula.widgets.nattable.rap</module>
-		<module>org.eclipse.nebula.widgets.nattable.rap.updatesite</module>
-		<!-- <module>org.eclipse.nebula.widgets.nattable.rap.examples</module> -->
-	</modules>
+        <module>target-platform-rap</module>
+        <module>org.eclipse.nebula.widgets.nattable.rap</module>
+        <module>org.eclipse.nebula.widgets.nattable.rap.updatesite</module>
+        <!-- <module>org.eclipse.nebula.widgets.nattable.rap.examples</module> -->
+    </modules>
 
 	<properties>
 		<tycho-version>4.0.13</tycho-version>
         <cbi-version>1.5.2</cbi-version>
         <nattable-version>${project.version}</nattable-version>
-		
-		<maven.compiler.source>21</maven.compiler.source>
-		<maven.compiler.target>21</maven.compiler.target>
-		
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		
-		<dash.summary>DEPENDENCIES</dash.summary>
-		<dash.projectId>technology.nebula.nattable</dash.projectId>
-		<dash.repo>https://github.com/eclipse-nattable/nattable</dash.repo>
+
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <dash.summary>DEPENDENCIES</dash.summary>
+        <dash.projectId>technology.nebula.nattable</dash.projectId>
+        <dash.repo>https://github.com/eclipse-nattable/nattable-rap</dash.repo>
 	</properties>
 
     <pluginRepositories>
-		<pluginRepository>
-			<id>dash-licenses-snapshots</id>
-			<url>https://repo.eclipse.org/content/repositories/dash-licenses-snapshots/</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</pluginRepository>
+        <pluginRepository>
+            <id>dash-licenses-snapshots</id>
+            <url>https://repo.eclipse.org/content/repositories/dash-licenses-snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
         <pluginRepository>
             <id>cbi</id>
             <url>https://repo.eclipse.org/content/repositories/cbi-releases/</url>
@@ -76,149 +76,149 @@
         </pluginRepository>
     </pluginRepositories>
     
-	<build>
-		<defaultGoal>clean verify</defaultGoal>
-		<plugins>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-maven-plugin</artifactId>
-				<version>${tycho-version}</version>
-				<extensions>true</extensions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-enforcer-plugin</artifactId>
-				<version>3.3.0</version>
-				<configuration>
-					<rules>
-						<requireJavaVersion>
-							<version>21</version>
-							<message>The NatTable RAP build requires at least Java 21 for running Tycho.</message>
-						</requireJavaVersion>
-						<requireMavenVersion>
-							<version>3.9.8</version>
-						</requireMavenVersion>
-					</rules>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>target-platform-configuration</artifactId>
-				<version>${tycho-version}</version>
-				<configuration>
-					<target>
-						<artifact>
-							<groupId>org.eclipse.nebula.widgets.nattable</groupId>
-							<artifactId>target-platform-rap</artifactId>
-							<version>${nattable-version}</version>
-						</artifact>
-					</target>
-					<targetDefinitionIncludeSource>honor</targetDefinitionIncludeSource>
-					<executionEnvironment>JavaSE-21</executionEnvironment>
-					<environments>
-						<environment>
-							<os>win32</os>
-							<ws>win32</ws>
-							<arch>x86_64</arch>
-						</environment>
-						<environment>
-							<os>linux</os>
-							<ws>gtk</ws>
-							<arch>x86_64</arch>
-						</environment>
-						<environment>
-							<os>macosx</os>
-							<ws>cocoa</ws>
-							<arch>x86_64</arch>
-						</environment>
-					</environments>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-source-plugin</artifactId>
-				<version>${tycho-version}</version>
-				<executions>
-					<execution>
-						<id>plugin-source</id>
-						<goals>
-							<goal>plugin-source</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-compiler-plugin</artifactId>
-				<version>${tycho-version}</version>
-				<configuration>
-					<useJDK>BREE</useJDK>
-					<requireJavaPackageImports>true</requireJavaPackageImports>
-				</configuration>
-			</plugin>
-		</plugins>
+    <build>
+        <defaultGoal>clean verify</defaultGoal>
+        <plugins>
+            <plugin>
+                <groupId>org.eclipse.tycho</groupId>
+                <artifactId>tycho-maven-plugin</artifactId>
+                <version>${tycho-version}</version>
+                <extensions>true</extensions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <rules>
+                        <requireJavaVersion>
+                            <version>21</version>
+                            <message>The NatTable RAP build requires at least Java 21 for running Tycho.</message>
+                        </requireJavaVersion>
+                        <requireMavenVersion>
+                            <version>3.9.8</version>
+                        </requireMavenVersion>
+                    </rules>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.eclipse.tycho</groupId>
+                <artifactId>target-platform-configuration</artifactId>
+                <version>${tycho-version}</version>
+                <configuration>
+                    <target>
+                        <artifact>
+                            <groupId>org.eclipse.nebula.widgets.nattable</groupId>
+                            <artifactId>target-platform-rap</artifactId>
+                            <version>${nattable-version}</version>
+                        </artifact>
+                    </target>
+                    <targetDefinitionIncludeSource>honor</targetDefinitionIncludeSource>
+                    <executionEnvironment>JavaSE-21</executionEnvironment>
+                    <environments>
+                        <environment>
+                            <os>win32</os>
+                            <ws>win32</ws>
+                            <arch>x86_64</arch>
+                        </environment>
+                        <environment>
+                            <os>linux</os>
+                            <ws>gtk</ws>
+                            <arch>x86_64</arch>
+                        </environment>
+                        <environment>
+                            <os>macosx</os>
+                            <ws>cocoa</ws>
+                            <arch>x86_64</arch>
+                        </environment>
+                    </environments>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.eclipse.tycho</groupId>
+                <artifactId>tycho-source-plugin</artifactId>
+                <version>${tycho-version}</version>
+                <executions>
+                    <execution>
+                        <id>plugin-source</id>
+                        <goals>
+                            <goal>plugin-source</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.eclipse.tycho</groupId>
+                <artifactId>tycho-compiler-plugin</artifactId>
+                <version>${tycho-version}</version>
+                <configuration>
+                    <useJDK>BREE</useJDK>
+                    <requireJavaPackageImports>true</requireJavaPackageImports>
+                </configuration>
+            </plugin>
+        </plugins>
 
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.eclipse.tycho</groupId>
-					<artifactId>tycho-p2-plugin</artifactId>
-					<version>${tycho-version}</version>
-					<executions>
-						<execution>
-							<id>attach-p2-metadata</id>
-							<phase>package</phase>
-							<goals>
-								<goal>p2-metadata</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-resources-plugin</artifactId>
-					<version>2.4.1</version>
-					<configuration>
-						<encoding>ISO-8859-1</encoding>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>3.1.0</version>
-					<configuration>
-						<tags>
-							<tag>
-								<name>noextend</name>
-								<placement>a</placement>
-								<head>noextend:</head>
-							</tag>
-							<tag>
-								<name>noinstantiate</name>
-								<placement>a</placement>
-								<head>noinstantiate:</head>
-							</tag>
-							<tag>
-								<name>noimplement</name>
-								<placement>a</placement>
-								<head>noimplement:</head>
-							</tag>
-						</tags>
-					</configuration>
-				</plugin>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.eclipse.tycho</groupId>
+                    <artifactId>tycho-p2-plugin</artifactId>
+                    <version>${tycho-version}</version>
+                    <executions>
+                        <execution>
+                            <id>attach-p2-metadata</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>p2-metadata</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>2.4.1</version>
+                    <configuration>
+                        <encoding>ISO-8859-1</encoding>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>3.1.0</version>
+                    <configuration>
+                        <tags>
+                            <tag>
+                                <name>noextend</name>
+                                <placement>a</placement>
+                                <head>noextend:</head>
+                            </tag>
+                            <tag>
+                                <name>noinstantiate</name>
+                                <placement>a</placement>
+                                <head>noinstantiate:</head>
+                            </tag>
+                            <tag>
+                                <name>noimplement</name>
+                                <placement>a</placement>
+                                <head>noimplement:</head>
+                            </tag>
+                        </tags>
+                    </configuration>
+                </plugin>
 
                 <plugin> 
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
                     <version>2.8.2</version>
                 </plugin>
-			</plugins>
-		</pluginManagement>
-	</build>
+            </plugins>
+        </pluginManagement>
+    </build>
 
     <profiles>
-		
-		<!-- The profile to sign the artifacts with the Eclipse signature -->
+
+        <!-- The profile to sign the artifacts with the Eclipse signature -->
         <profile>
             <id>sign</id>
             <build>
@@ -245,20 +245,20 @@
         <profile>
             <id>eclipse-nexus-publish</id>
 
-			<distributionManagement>
-			    <repository>
-			      <id>repo.eclipse.org</id>
-			      <name>NatTable Repository - Releases</name>
-			      <url>https://repo.eclipse.org/content/repositories/nattable-releases/</url>
-			    </repository>
-			    <snapshotRepository>
-			      <id>repo.eclipse.org</id>
-			      <name>NatTable Repository - Snapshots</name>
-			      <url>https://repo.eclipse.org/content/repositories/nattable-snapshots/</url>
-			    </snapshotRepository>
-			</distributionManagement>
+            <distributionManagement>
+                <repository>
+                    <id>repo.eclipse.org</id>
+                    <name>NatTable RAP Repository - Releases</name>
+                    <url>https://repo.eclipse.org/content/repositories/nattable-rap-releases/</url>
+                </repository>
+                <snapshotRepository>
+                    <id>repo.eclipse.org</id>
+                    <name>NatTable RAP Repository - Snapshots</name>
+                    <url>https://repo.eclipse.org/content/repositories/nattable-rap-snapshots/</url>
+                </snapshotRepository>
+            </distributionManagement>
         </profile>
-        
+
         <!-- The profiles for publishing to Maven Central -->
         <profile>
           <id>skip-deploy</id>

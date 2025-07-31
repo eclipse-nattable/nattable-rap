@@ -17,7 +17,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import org.eclipse.collections.api.list.primitive.MutableIntList;
-import org.eclipse.collections.impl.factory.primitive.IntLists;
+import org.eclipse.collections.api.factory.primitive.IntLists;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.nebula.widgets.nattable.freeze.CompositeFreezeLayer;
