@@ -12,7 +12,7 @@ pipeline {
         jdk 'openjdk-jdk21-latest'
     }
     environment {
-        SNAPSHOTS_DIR = "/home/data/httpd/download.eclipse.org/nattable-rap/snapshots"
+        SNAPSHOTS_DIR = "/home/data/httpd/download.eclipse.org/nattable/nattable-rap/snapshots"
         SNAPSHOT_BUILD_DIR = "${SNAPSHOTS_DIR}/${BUILD_NUMBER}"
         SSH_HOST = "genie.nattable@projects-storage.eclipse.org"
     }

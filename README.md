@@ -167,7 +167,7 @@ As RAP has several limitations compared to SWT, there are features in NatTable t
 
 You can find update site URLs and downloadable repository archives of the current release and all older releases in [NatTable Downloads](https://eclipse.dev/nattable/download.php).
 
-If you are interested in SNAPSHOT builds, you can find the update site URLs and all downloadable resources in [NatTable RAP SNAPSHOTS](https://download.eclipse.org/nattable-rap/snapshots/) 
+If you are interested in SNAPSHOT builds, you can find the update site URLs and all downloadable resources in [NatTable RAP SNAPSHOTS](https://download.eclipse.org/nattable/nattable-rap/snapshots/) 
 
 ## Additional information
 
