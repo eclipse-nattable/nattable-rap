@@ -15,7 +15,6 @@ package org.eclipse.nebula.widgets.nattable.examples._500_Layers._508_Reorder;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.nebula.widgets.nattable.NatTable;
 import org.eclipse.nebula.widgets.nattable.config.DefaultNatTableStyleConfiguration;
 import org.eclipse.nebula.widgets.nattable.data.IDataProvider;
@@ -40,8 +39,6 @@ import org.eclipse.nebula.widgets.nattable.selection.SelectionLayer;
 import org.eclipse.nebula.widgets.nattable.ui.menu.AbstractHeaderMenuConfiguration;
 import org.eclipse.nebula.widgets.nattable.ui.menu.PopupMenuBuilder;
 import org.eclipse.nebula.widgets.nattable.viewport.ViewportLayer;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
@@ -64,8 +61,6 @@ public class _5083_ColumnAndRowReorderExample extends AbstractNatExample {
 
     @Override
     public Control createExampleControl(Composite parent) {
-        Composite panel = new Composite(parent, SWT.NONE);
-
         // property names of the Person class
         String[] propertyNames = {
                 "firstName",
@@ -131,7 +126,7 @@ public class _5083_ColumnAndRowReorderExample extends AbstractNatExample {
 
         // turn the auto configuration off as we want to add our header menu
         // configuration
-        final NatTable natTable = new NatTable(panel, gridLayer, false);
+        final NatTable natTable = new NatTable(parent, gridLayer, false);
 
         // as the autoconfiguration of the NatTable is turned off, we have to
         // add the DefaultNatTableStyleConfiguration manually
@@ -148,14 +143,10 @@ public class _5083_ColumnAndRowReorderExample extends AbstractNatExample {
         });
         natTable.configure();
 
-        panel.setLayout(new GridLayout());
-        GridDataFactory.fillDefaults().grab(true, true).applyTo(panel);
-        GridDataFactory.fillDefaults().grab(true, true).applyTo(natTable);
-
         gridLayer.registerCommandHandler(
                 new DisplayPersistenceDialogCommandHandler(natTable));
 
-        return panel;
+        return natTable;
     }
 
 }
