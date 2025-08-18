@@ -563,12 +563,13 @@ public class RAPInitializer {
                     int widthDiff = Integer.parseInt(dataArray[2]);
                     int width = natTable.getColumnWidthByPosition(pos) + widthDiff;
                     natTable.doCommand(new ColumnResizeCommand(natTable, pos, width));
-                }
+                    event.doit = false;                }
                 else if ("rowResize".equals(dataArray[0])) {
                 	int pos = Integer.parseInt(dataArray[1]);
                 	int heightDiff = Integer.parseInt(dataArray[2]);
                 	int height = natTable.getRowHeightByPosition(pos) + heightDiff;
                 	natTable.doCommand(new RowResizeCommand(natTable, pos, height));
+                	event.doit = false;
                 } else if ("columnDrag".equals(dataArray[0])) {
 					int startX = Integer.parseInt(dataArray[1]);
 					// can not use the event.x and event.y as it seems they change somehow in the processing
@@ -582,6 +583,7 @@ public class RAPInitializer {
 			        if (regionLabels != null
 			                && regionLabels.hasLabel(GridRegion.GROUP_BY_REGION)) {
 			            natTable.doCommand(new GroupByCommand(GroupByAction.ADD, natTable.getColumnIndexByPosition(fromColumn)));
+			            event.doit = false;
 			        } else if (regionLabels != null 
 			        		&& regionLabels.hasLabel(GridRegion.COLUMN_GROUP_HEADER)) {
 			        	int toRow = natTable.getRowPositionByY(endY);
@@ -598,9 +600,11 @@ public class RAPInitializer {
 			        		toColumn = cell.getOriginColumnPosition() + cell.getColumnSpan();
 			        	}
 			        	natTable.doCommand(new ColumnGroupReorderCommand(natTable, level, fromColumn, toColumn));
+			        	event.doit = false;
 			        } else {
 			        	int toColumn = getDragToGridColumnPosition(natTable, endX);
 			        	natTable.doCommand(new ColumnReorderCommand(natTable, fromColumn, toColumn));
+			        	event.doit = false;
 			        }
 				} else if ("rowDrag".equals(dataArray[0])) {
 					int startY = Integer.parseInt(dataArray[1]);
@@ -627,8 +631,10 @@ public class RAPInitializer {
 			        		toRow = cell.getOriginRowPosition() + cell.getRowSpan();
 			        	}
 			        	natTable.doCommand(new RowGroupReorderCommand(natTable, level, fromRow, toRow));
+			        	event.doit = false;
 			        } else {
 			        	natTable.doCommand(new RowReorderCommand(natTable, fromRow, toRow));
+			        	event.doit = false;
 			        }
 				}
             }
