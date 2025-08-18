@@ -69,7 +69,7 @@
         <setEntry value="org.apache.commons.commons-compress@default:default"/>
         <setEntry value="org.apache.commons.commons-fileupload2-core@default:default"/>
         <setEntry value="org.apache.commons.commons-fileupload2-jakarta-servlet6@default:default"/>
-        <setEntry value="org.apache.commons.commons-io*2.19.0@default:default"/>
+        <setEntry value="org.apache.commons.commons-io*2.20.0@default:default"/>
         <setEntry value="org.apache.commons.commons-logging@default:default"/>
         <setEntry value="org.apache.commons.lang3@default:default"/>
         <setEntry value="org.apache.commons.math3@default:default"/>
