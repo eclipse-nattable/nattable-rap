@@ -51,21 +51,48 @@ var handleEvent = function(event) {
         }
     } 
 
-    // TODO paint the drag line
-    /*
-    if (columnPositionToResize) {
+    // paint the resize drag line
+    if (columnPositionToResize !== null || rowPositionToResize !== null) {
         var natTable = rap.getObject(event.widget.getData("control"));
-        const ctx = natTable.$el.get()[0].firstChild.getContext("2d");
-
-        // Start a new Path
-        ctx.beginPath();
-        ctx.moveTo(event.x, 0);
-        ctx.lineTo(event.x, natTable.getClientArea()[2]);
         
+        // check for an overlay canvas
+        // create one if it has not been created yet
+        var overlayCanvas = document.getElementById("resizeOverlay");
+        if (!overlayCanvas) {
+            const natTableCanvas = natTable.$el.get()[0].firstChild;
+            overlayCanvas = document.createElement("canvas");
+            overlayCanvas.id = "resizeOverlay";
+            overlayCanvas.width = natTableCanvas.width;
+            overlayCanvas.height = natTableCanvas.height;
+
+            const natTableParent = natTableCanvas.parentElement;    
+            const styles = "position:absolute;left:" + natTableParent.style.left + ";top:" + natTableParent.style.top + ";width:" + natTableCanvas.style.width + ";height:" + natTableCanvas.style.height + ";";
+            overlayCanvas.style = styles;
+            
+            natTableCanvas.parentElement.appendChild(overlayCanvas);
+        }
+                
+        const ctx = overlayCanvas.getContext("2d");
+        
+        // clear
+        ctx.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height);
+        
+            // Start a new Path
+        if (columnPositionToResize !== null) {
+            ctx.beginPath();
+            ctx.moveTo(event.x, 0);
+            ctx.lineTo(event.x, natTable.getClientArea()[2]);
+        }
+
+        if (rowPositionToResize !== null) {
+            ctx.beginPath();
+            ctx.moveTo(0, event.y);
+            ctx.lineTo(natTable.getClientArea()[3], event.y);
+        }
+
         // Draw the Path
         ctx.stroke();
     }
-    */
 };
 
 function isOverColumnBorder(columnBorders, event) {

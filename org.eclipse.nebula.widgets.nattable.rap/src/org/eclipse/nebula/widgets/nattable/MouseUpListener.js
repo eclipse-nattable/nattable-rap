@@ -63,6 +63,11 @@ var handleEvent = function(event) {
         event.widget.setData("initialResizeY", null);
     }
 
+    var overlayCanvas = document.getElementById("resizeOverlay");
+    if (overlayCanvas) {
+        overlayCanvas.remove();
+    }
+    
     var columnDragStartX = event.widget.getData("columnDragStartX");
     if (columnDragStartX !== null) {
         var connection = rwt.remote.Connection.getInstance();
