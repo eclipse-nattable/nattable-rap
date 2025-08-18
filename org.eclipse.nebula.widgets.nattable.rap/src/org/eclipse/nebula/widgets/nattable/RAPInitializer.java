@@ -363,10 +363,13 @@ public class RAPInitializer {
                     }
                 }
             } else {
-                Rectangle bottomRowBounds = columnHeader.getCellByPosition(0, columnHeader.getRowCount() - 1).getBounds();
-                return new int[] {
-                        columnHeader.getStartYOfRowPosition(0),
-                        bottomRowBounds.y + bottomRowBounds.height };
+            	ILayerCell bottomRowCell = columnHeader.getCellByPosition(0, columnHeader.getRowCount() - 1);
+            	if (bottomRowCell != null) {
+            		Rectangle bottomRowBounds = bottomRowCell.getBounds();
+            		return new int[] {
+            				columnHeader.getStartYOfRowPosition(0),
+            				bottomRowBounds.y + bottomRowBounds.height };
+            	}
             }
         }
         return new int[] { -1 };
@@ -422,10 +425,13 @@ public class RAPInitializer {
     				}
     			}
     		} else {
-                Rectangle rightMostBounds = rowHeader.getCellByPosition(rowHeader.getColumnCount() - 1, 0).getBounds();
-                return new int[] {
-                        rowHeader.getStartXOfColumnPosition(0),
-                        rightMostBounds.x + rightMostBounds.width };
+    			ILayerCell rightMostCell = rowHeader.getCellByPosition(rowHeader.getColumnCount() - 1, 0);
+    			if (rightMostCell != null) {
+    				Rectangle rightMostBounds = rightMostCell.getBounds();
+    				return new int[] {
+    						rowHeader.getStartXOfColumnPosition(0),
+    						rightMostBounds.x + rightMostBounds.width };
+    			}
     		}
     	}
         return new int[] { -1 };
