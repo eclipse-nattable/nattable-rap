@@ -65,8 +65,7 @@ var handleEvent = function(event) {
             overlayCanvas.width = natTableCanvas.width;
             overlayCanvas.height = natTableCanvas.height;
 
-            const natTableParent = natTableCanvas.parentElement;    
-            const styles = "position:absolute;left:" + natTableParent.style.left + ";top:" + natTableParent.style.top + ";width:" + natTableCanvas.style.width + ";height:" + natTableCanvas.style.height + ";";
+            const styles = "position:absolute;left:0;top:0;width:" + natTableCanvas.style.width + ";height:" + natTableCanvas.style.height + ";";
             overlayCanvas.style = styles;
             
             natTableCanvas.parentElement.appendChild(overlayCanvas);
