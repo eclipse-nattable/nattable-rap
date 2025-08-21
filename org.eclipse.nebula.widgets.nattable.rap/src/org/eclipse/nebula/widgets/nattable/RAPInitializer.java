@@ -568,13 +568,17 @@ public class RAPInitializer {
                     int pos = Integer.parseInt(dataArray[1]);
                     int widthDiff = Integer.parseInt(dataArray[2]);
                     int width = natTable.getColumnWidthByPosition(pos) + widthDiff;
-                    natTable.doCommand(new ColumnResizeCommand(natTable, pos, width));
+                    if (width > 0) {
+                    	natTable.doCommand(new ColumnResizeCommand(natTable, pos, width));
+                    }
                     event.doit = false;                }
                 else if ("rowResize".equals(dataArray[0])) {
                 	int pos = Integer.parseInt(dataArray[1]);
                 	int heightDiff = Integer.parseInt(dataArray[2]);
                 	int height = natTable.getRowHeightByPosition(pos) + heightDiff;
-                	natTable.doCommand(new RowResizeCommand(natTable, pos, height));
+                	if (height > 0) {
+                		natTable.doCommand(new RowResizeCommand(natTable, pos, height));
+                	}
                 	event.doit = false;
                 } else if ("columnDrag".equals(dataArray[0])) {
 					int startX = Integer.parseInt(dataArray[1]);
