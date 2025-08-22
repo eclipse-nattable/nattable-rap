@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.nebula.widgets.nattable.examples._500_Layers._504_Viewport;
 
+import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.nebula.widgets.nattable.NatTable;
 import org.eclipse.nebula.widgets.nattable.data.ExtendedReflectiveColumnPropertyAccessor;
 import org.eclipse.nebula.widgets.nattable.data.IColumnPropertyAccessor;
@@ -149,15 +150,13 @@ public class _5042_HorizontalSplitViewportExample extends AbstractNatExample {
     private void createSplitSliders(Composite natTableParent, ViewportLayer left, ViewportLayer right) {
 
         // calculate the slider height according to the display scaling
-        int sliderHeight = GUIHelper.convertHorizontalPixelToDpi(17, true);
+        int sliderHeight = GUIHelper.convertHorizontalPixelToDpi(16, true);
 
         Composite sliderComposite = new Composite(natTableParent, SWT.NONE);
-        GridData gridData = new GridData();
-        gridData.horizontalAlignment = GridData.FILL;
-        gridData.grabExcessHorizontalSpace = true;
-        gridData.grabExcessVerticalSpace = false;
-        gridData.heightHint = sliderHeight;
-        sliderComposite.setLayoutData(gridData);
+        GridDataFactory.fillDefaults()
+                .grab(true, false)
+                .hint(sliderHeight, SWT.DEFAULT)
+                .applyTo(sliderComposite);
 
         GridLayout gridLayout = new GridLayout(2, false);
         gridLayout.marginHeight = 0;
@@ -177,28 +176,22 @@ public class _5042_HorizontalSplitViewportExample extends AbstractNatExample {
             }
         };
         sliderLeftComposite.setLayout(new FillLayout());
-        gridData = new GridData();
-        gridData.horizontalAlignment = GridData.BEGINNING;
-        gridData.verticalAlignment = GridData.BEGINNING;
-        sliderLeftComposite.setLayoutData(gridData);
+        GridDataFactory.swtDefaults()
+                .align(GridData.BEGINNING, GridData.BEGINNING)
+                .hint(sliderHeight, SWT.DEFAULT)
+                .applyTo(sliderLeftComposite);
 
         Slider sliderLeft = new Slider(sliderLeftComposite, SWT.HORIZONTAL);
-        gridData = new GridData();
-        gridData.horizontalAlignment = GridData.FILL;
-        gridData.verticalAlignment = GridData.FILL;
-        sliderLeft.setLayoutData(gridData);
-
-        left.setHorizontalScroller(new SliderScroller(sliderLeft));
+        left.setHorizontalScroller(new SliderScroller(sliderLeft, false));
 
         // Slider Right
         Slider sliderRight = new Slider(sliderComposite, SWT.HORIZONTAL);
-        gridData = new GridData();
-        gridData.horizontalAlignment = GridData.FILL;
-        gridData.verticalAlignment = GridData.BEGINNING;
-        gridData.grabExcessHorizontalSpace = true;
-        gridData.grabExcessVerticalSpace = false;
-        sliderRight.setLayoutData(gridData);
+        GridDataFactory.swtDefaults()
+                .align(GridData.FILL, GridData.BEGINNING)
+                .grab(true, false)
+                .hint(sliderHeight, SWT.DEFAULT)
+                .applyTo(sliderRight);
 
-        right.setHorizontalScroller(new SliderScroller(sliderRight));
+        right.setHorizontalScroller(new SliderScroller(sliderRight, false));
     }
 }

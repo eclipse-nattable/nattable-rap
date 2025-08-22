@@ -484,7 +484,7 @@ public class RAPInitializer {
 		    .applyTo(verticalComposite); 
 		GridDataFactory
 		    .swtDefaults()
-		    .hint(14, SWT.DEFAULT)
+		    .hint(16, SWT.DEFAULT)
 		    .align(SWT.BEGINNING, SWT.FILL)
 		    .grab(false, true)
 		    .applyTo(verticalComposite); 
@@ -494,7 +494,7 @@ public class RAPInitializer {
 		    .fillDefaults()
 		    .grab(true, true)
 		    .applyTo(vertical);
-		IScroller<Slider> verticalScroller = new SliderScroller(vertical);
+		IScroller<Slider> verticalScroller = new SliderScroller(vertical, false);
 
 		// horizontal scrollbar wrapped in another composite for layout 
 		Composite horizontalComposite = new Composite(container, SWT.NONE); 
@@ -505,7 +505,7 @@ public class RAPInitializer {
 		    .applyTo(horizontalComposite); 
 		GridDataFactory
 		    .swtDefaults()
-		    .hint(SWT.DEFAULT, 14)
+		    .hint(SWT.DEFAULT, 16)
 		    .align(SWT.FILL, SWT.BEGINNING)
 		    .grab(true, false)
 		    .applyTo(horizontalComposite);
@@ -515,7 +515,7 @@ public class RAPInitializer {
 		    .fillDefaults()
 		    .grab(true, true)
 		    .applyTo(horizontal); 
-		IScroller<Slider> horizontalScroller = new SliderScroller(horizontal);
+		IScroller<Slider> horizontalScroller = new SliderScroller(horizontal, false);
 
 		addMouseWheelListener(natTable, vertical);
 		

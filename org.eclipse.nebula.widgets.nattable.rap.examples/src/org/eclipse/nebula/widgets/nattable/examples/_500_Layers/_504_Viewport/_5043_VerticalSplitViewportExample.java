@@ -148,7 +148,7 @@ public class _5043_VerticalSplitViewportExample extends AbstractNatExample {
     private void createSplitSliders(Composite natTableParent, ViewportLayer top, ViewportLayer bottom) {
 
         // calculate the slider width according to the display scaling
-        int sliderWidth = GUIHelper.convertVerticalPixelToDpi(17, true);
+        int sliderWidth = GUIHelper.convertVerticalPixelToDpi(16, true);
 
         Composite sliderComposite = new Composite(natTableParent, SWT.NONE);
         GridData gridData = new GridData();
@@ -182,12 +182,7 @@ public class _5043_VerticalSplitViewportExample extends AbstractNatExample {
         sliderTopComposite.setLayoutData(gridData);
 
         Slider sliderTop = new Slider(sliderTopComposite, SWT.VERTICAL);
-        gridData = new GridData();
-        gridData.horizontalAlignment = GridData.FILL;
-        gridData.verticalAlignment = GridData.FILL;
-        sliderTop.setLayoutData(gridData);
-
-        top.setVerticalScroller(new SliderScroller(sliderTop));
+        top.setVerticalScroller(new SliderScroller(sliderTop, false));
 
         // Slider Bottom
         Slider sliderBottom = new Slider(sliderComposite, SWT.VERTICAL);
@@ -198,6 +193,6 @@ public class _5043_VerticalSplitViewportExample extends AbstractNatExample {
         gridData.grabExcessVerticalSpace = true;
         sliderBottom.setLayoutData(gridData);
 
-        bottom.setVerticalScroller(new SliderScroller(sliderBottom));
+        bottom.setVerticalScroller(new SliderScroller(sliderBottom, false));
     }
 }

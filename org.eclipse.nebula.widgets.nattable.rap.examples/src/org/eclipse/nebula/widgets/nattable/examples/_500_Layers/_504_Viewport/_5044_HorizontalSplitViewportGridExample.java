@@ -232,6 +232,11 @@ public class _5044_HorizontalSplitViewportGridExample extends AbstractNatExample
         gridData.grabExcessVerticalSpace = true;
         natTable.setLayoutData(gridData);
 
+        natTable.addConfiguration(new DefaultNatTableStyleConfiguration());
+        natTable.addConfiguration(new HeaderMenuConfiguration(natTable));
+
+        natTable.configure();
+
         createSplitSliders(composite, rowHeaderLayer,
                 bodyLayer.getViewportLayerLeft(),
                 bodyLayer.getViewportLayerRight());
@@ -253,20 +258,6 @@ public class _5044_HorizontalSplitViewportGridExample extends AbstractNatExample
             }
         });
 
-        natTable.addConfiguration(new DefaultNatTableStyleConfiguration());
-        natTable.addConfiguration(new HeaderMenuConfiguration(natTable));
-
-        // FIXME custom configuration constructor to avoid mousewheel
-        // registration
-        // natTable.addConfiguration(new ScalingUiBindingConfiguration(natTable,
-        // cr -> {
-        // // trigger update of client area adapter and layout of sliders
-        // bodyLayer.scaleLeftWidth(cr);
-        // composite.layout(true, true);
-        // }));
-
-        natTable.configure();
-
         bodyLayer.scaleLeftWidth(natTable.getConfigRegistry());
 
         // as the min column position is calculated dynamically we need to
@@ -283,7 +274,7 @@ public class _5044_HorizontalSplitViewportGridExample extends AbstractNatExample
             final ViewportLayer left, final ViewportLayer right) {
 
         // calculate the slider height according to the display scaling
-        int sliderHeight = GUIHelper.convertHorizontalPixelToDpi(17, true);
+        int sliderHeight = GUIHelper.convertHorizontalPixelToDpi(16, true);
 
         Composite sliderComposite = new Composite(natTableParent, SWT.NONE);
         GridData gridData = new GridData();
@@ -318,12 +309,7 @@ public class _5044_HorizontalSplitViewportGridExample extends AbstractNatExample
         sliderLeftComposite.setLayoutData(gridData);
 
         Slider sliderLeft = new Slider(sliderLeftComposite, SWT.HORIZONTAL);
-        gridData = new GridData();
-        gridData.horizontalAlignment = GridData.FILL;
-        gridData.verticalAlignment = GridData.FILL;
-        sliderLeft.setLayoutData(gridData);
-
-        left.setHorizontalScroller(new SliderScroller(sliderLeft));
+        left.setHorizontalScroller(new SliderScroller(sliderLeft, false));
 
         // Slider Right
         Slider sliderRight = new Slider(sliderComposite, SWT.HORIZONTAL);
@@ -334,7 +320,7 @@ public class _5044_HorizontalSplitViewportGridExample extends AbstractNatExample
         gridData.grabExcessVerticalSpace = true;
         sliderRight.setLayoutData(gridData);
 
-        right.setHorizontalScroller(new SliderScroller(sliderRight));
+        right.setHorizontalScroller(new SliderScroller(sliderRight, false));
     }
 
     /**

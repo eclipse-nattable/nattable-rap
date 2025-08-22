@@ -219,12 +219,16 @@ public class _5046_MultiScrollExample extends AbstractNatExample {
      */
     private void createSplitSliders(
             Composite natTableParent, ExtendedGridLayer gridLayer, int fixedHeaderWidth) {
+
+        // calculate the slider height according to the display scaling
+        int sliderHeight = GUIHelper.convertHorizontalPixelToDpi(16, true);
+
         Composite sliderComposite = new Composite(natTableParent, SWT.NONE);
         GridData gridData = new GridData();
         gridData.horizontalAlignment = GridData.FILL;
         gridData.grabExcessHorizontalSpace = true;
         gridData.grabExcessVerticalSpace = false;
-        gridData.heightHint = 17;
+        gridData.heightHint = sliderHeight;
         sliderComposite.setLayoutData(gridData);
 
         GridLayout gridLayout = new GridLayout(2, false);
@@ -241,7 +245,7 @@ public class _5046_MultiScrollExample extends AbstractNatExample {
             @Override
             public Point computeSize(int wHint, int hHint, boolean changed) {
                 int width = ((ClientAreaAdapter) gridLayer.getStructureBody().getViewportLayer().getClientAreaProvider()).getWidth() + fixedHeaderWidth;
-                return new Point(width, 17);
+                return new Point(width, sliderHeight);
             }
         };
         sliderLeftComposite.setLayout(new FillLayout());
@@ -251,12 +255,7 @@ public class _5046_MultiScrollExample extends AbstractNatExample {
         sliderLeftComposite.setLayoutData(gridData);
 
         Slider sliderLeft = new Slider(sliderLeftComposite, SWT.HORIZONTAL);
-        gridData = new GridData();
-        gridData.horizontalAlignment = GridData.FILL;
-        gridData.verticalAlignment = GridData.FILL;
-        sliderLeft.setLayoutData(gridData);
-
-        gridLayer.getStructureBody().getViewportLayer().setHorizontalScroller(new SliderScroller(sliderLeft));
+        gridLayer.getStructureBody().getViewportLayer().setHorizontalScroller(new SliderScroller(sliderLeft, false));
 
         // Slider Right
         Slider sliderRight = new Slider(sliderComposite, SWT.HORIZONTAL);
@@ -267,7 +266,7 @@ public class _5046_MultiScrollExample extends AbstractNatExample {
         gridData.grabExcessVerticalSpace = false;
         sliderRight.setLayoutData(gridData);
 
-        gridLayer.getContentBody().getViewportLayer().setHorizontalScroller(new SliderScroller(sliderRight));
+        gridLayer.getContentBody().getViewportLayer().setHorizontalScroller(new SliderScroller(sliderRight, false));
     }
 
     /**
