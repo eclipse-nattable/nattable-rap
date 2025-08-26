@@ -115,11 +115,20 @@ public class RAPInitializer {
         @SuppressWarnings({ "unchecked", "restriction" })
         @Advice.OnMethodEnter
         private static <T> T onEnter(@Advice.Argument(0) Class<T> adapter, @Advice.This Object thiz) {
+        	
+        	boolean isNatTable = false;
+            for (Class<?> cls = thiz.getClass(); cls != null; cls = cls.getSuperclass()) {
+                if ("org.eclipse.nebula.widgets.nattable.NatTable".equals(cls.getName())
+                		&& adapter == WidgetLCA.class) {
+                    isNatTable = true;
+                    break;
+                }
+            }
 
-            if ("org.eclipse.nebula.widgets.nattable.NatTable".equals(thiz.getClass().getName())
-                    && adapter == WidgetLCA.class) {
+            if (isNatTable) {
                 return (T) NatTableLCA.INSTANCE;
             }
+
             return null;
         }
         
