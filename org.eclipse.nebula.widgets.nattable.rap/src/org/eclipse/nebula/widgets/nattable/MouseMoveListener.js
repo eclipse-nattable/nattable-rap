@@ -58,8 +58,8 @@ var handleEvent = function(event) {
         // check for an overlay canvas
         // create one if it has not been created yet
         var overlayCanvas = document.getElementById("resizeOverlay");
+        const natTableCanvas = natTable.$el.get()[0].firstChild;
         if (!overlayCanvas) {
-            const natTableCanvas = natTable.$el.get()[0].firstChild;
             overlayCanvas = document.createElement("canvas");
             overlayCanvas.id = "resizeOverlay";
             overlayCanvas.width = natTableCanvas.width;
@@ -71,8 +71,11 @@ var handleEvent = function(event) {
             natTableCanvas.parentElement.appendChild(overlayCanvas);
         }
                 
+		const ntCtx = natTableCanvas.getContext("2d");
+		
         const ctx = overlayCanvas.getContext("2d");
-        
+        ctx.setTransform(ntCtx.getTransform());
+		
         // clear
         ctx.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height);
         
