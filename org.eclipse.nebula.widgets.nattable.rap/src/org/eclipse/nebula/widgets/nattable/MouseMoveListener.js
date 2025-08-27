@@ -25,7 +25,7 @@ var handleEvent = function(event) {
         let chd = columnHeaderDimensions ? JSON.parse(columnHeaderDimensions) : null;
         let rhd = rowHeaderDimensions ? JSON.parse(rowHeaderDimensions) : null;
         if (chd && event.y > chd[0] && event.y < chd[1]) {
-            if (columnDragStartX) {
+            if (columnDragStartX !== null) {
                 document.body.style.cursor = 'grabbing';
             }
             else if (isOverColumnBorder(columnBorders, event)) {
@@ -36,7 +36,7 @@ var handleEvent = function(event) {
             }
         } 
         else if (rhd && event.x > rhd[0] && event.x < rhd[1]) {
-            if (columnDragStartX || rowDragStartY) {
+            if (columnDragStartX !== null || rowDragStartY !== null) {
                 document.body.style.cursor = 'grabbing';
             }
             else if (isOverRowBorder(rowBorders, event)) {
