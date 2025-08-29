@@ -63,7 +63,7 @@ var handleEvent = function(event) {
         event.widget.setData("initialResizeY", null);
     }
 
-    var overlayCanvas = document.getElementById("resizeOverlay");
+    var overlayCanvas = document.getElementById("overlayCanvas");
     if (overlayCanvas) {
         overlayCanvas.remove();
     }

@@ -12,8 +12,10 @@
 // ******************************************************************************/
 var handleEvent = function(event) {
     var columnHeaderDimensions = event.widget.getData("columnHeaderDimensions");
+    var columnResizeBorders = event.widget.getData("columnResizeBorders");
     var columnBorders = event.widget.getData("columnBorders");
     var rowHeaderDimensions = event.widget.getData("rowHeaderDimensions");
+	var rowResizeBorders = event.widget.getData("rowResizeBorders");
     var rowBorders = event.widget.getData("rowBorders");
     var columnPositionToResize = event.widget.getData("columnPositionToResize");
     var rowPositionToResize = event.widget.getData("rowPositionToResize");
@@ -28,7 +30,7 @@ var handleEvent = function(event) {
             if (columnDragStartX !== null) {
                 document.body.style.cursor = 'grabbing';
             }
-            else if (isOverColumnBorder(columnBorders, event)) {
+            else if (isOverBorder(columnResizeBorders, event.x)) {
                 document.body.style.cursor = 'col-resize';
             }
             else {
@@ -39,7 +41,7 @@ var handleEvent = function(event) {
             if (columnDragStartX !== null || rowDragStartY !== null) {
                 document.body.style.cursor = 'grabbing';
             }
-            else if (isOverRowBorder(rowBorders, event)) {
+            else if (isOverBorder(rowResizeBorders, event.y)) {
                 document.body.style.cursor = 'row-resize';
             }            
             else {
@@ -51,70 +53,121 @@ var handleEvent = function(event) {
         }
     } 
 
-    // paint the resize drag line
-    if (columnPositionToResize !== null || rowPositionToResize !== null) {
-        var natTable = rap.getObject(event.widget.getData("control"));
-        
-        // check for an overlay canvas
-        // create one if it has not been created yet
-        var overlayCanvas = document.getElementById("resizeOverlay");
-        const natTableCanvas = natTable.$el.get()[0].firstChild;
-        if (!overlayCanvas) {
-            overlayCanvas = document.createElement("canvas");
-            overlayCanvas.id = "resizeOverlay";
-            overlayCanvas.width = natTableCanvas.width;
-            overlayCanvas.height = natTableCanvas.height;
+	var natTable = rap.getObject(event.widget.getData("control"));
+	const overlayCanvas = getOverlayCanvas(natTable);
+	const ctx = overlayCanvas.getContext("2d");
+	
+    // clear
+    ctx.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height);
 
-            const styles = "position:absolute;left:0;top:0;width:" + natTableCanvas.style.width + ";height:" + natTableCanvas.style.height + ";";
-            overlayCanvas.style = styles;
-            
-            natTableCanvas.parentElement.appendChild(overlayCanvas);
-        }
-                
-		const ntCtx = natTableCanvas.getContext("2d");
-		
-        const ctx = overlayCanvas.getContext("2d");
-        ctx.setTransform(ntCtx.getTransform());
-		
-        // clear
-        ctx.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height);
-        
-            // Start a new Path
-        if (columnPositionToResize !== null) {
-            ctx.beginPath();
-            ctx.moveTo(event.x, 0);
-            ctx.lineTo(event.x, natTable.getClientArea()[2]);
-        }
+    // paint the column resize drag line
+    if (columnPositionToResize !== null) {
+        ctx.beginPath();
+        ctx.moveTo(event.x, 0);
+        ctx.lineTo(event.x, natTable.getClientArea()[2]);
 
-        if (rowPositionToResize !== null) {
-            ctx.beginPath();
-            ctx.moveTo(0, event.y);
-            ctx.lineTo(natTable.getClientArea()[3], event.y);
-        }
-
-        // Draw the Path
-        ctx.stroke();
+		// Draw the Path
+		ctx.stroke();
     }
+
+    // paint the row resize drag line
+    if (rowPositionToResize !== null) {
+        ctx.beginPath();
+        ctx.moveTo(0, event.y);
+        ctx.lineTo(natTable.getClientArea()[3], event.y);
+
+		// Draw the Path
+		ctx.stroke();
+    }
+	
+	// paint the column reorder drag line
+	if (columnDragStartX !== null) {
+		var target = getTargetBorders(event.x, columnBorders);
+		let halfWidth = (target[1] - target[0]) / 2;
+		if (event.x < (target[0] + halfWidth)) {
+			ctx.beginPath();
+			ctx.moveTo(target[0], 0);
+			ctx.lineTo(target[0], natTable.getClientArea()[2]);
+
+			// Draw the Path
+			ctx.stroke();			
+		} else if (target[0] > -1 && event.x <= target[1]) {
+			ctx.beginPath();
+			ctx.moveTo(target[1], 0);
+			ctx.lineTo(target[1], natTable.getClientArea()[2]);
+
+			// Draw the Path
+			ctx.stroke();						
+		}
+	}
+				
+	// paint the row reorder drag line
+	if (rowDragStartY !== null) {
+		var target = getTargetBorders(event.y, rowBorders);
+		let halfHeight = (target[1] - target[0]) / 2;
+		if (event.y < (target[0] + halfHeight)) {
+			ctx.beginPath();
+			ctx.moveTo(0, target[0]);
+			ctx.lineTo(natTable.getClientArea()[2], target[0]);
+	
+			// Draw the Path
+			ctx.stroke();			
+		} else if (target[0] > -1 && event.y <= target[1]) {
+			ctx.beginPath();
+			ctx.moveTo(0, target[1]);
+			ctx.lineTo(natTable.getClientArea()[2], target[1]);
+	
+			// Draw the Path
+			ctx.stroke();						
+		}
+	}
 };
 
-function isOverColumnBorder(columnBorders, event) {
+function isOverBorder(resizeBorders, eventPos) {
     var border = 0;
-    for (let i = 0; i < columnBorders.length; i++) {
-        border = columnBorders[i];
-        if (event.x > (border - 5) && event.x < (border + 5)) {
+    for (let i = 0; i < resizeBorders.length; i++) {
+        border = resizeBorders[i];
+        if (eventPos > (border - 5) && eventPos < (border + 5)) {
             return true;
         }
     }
     return false;
 }
 
-function isOverRowBorder(rowBorders, event) {
-    var border = 0;
-    for (let i = 0; i < rowBorders.length; i++) {
-        border = rowBorders[i];
-        if (event.y > (border - 5) && event.y < (border + 5)) {
-            return true;
-        }
-    }
-    return false;
+function getTargetBorders(pos, borders) {
+	var border = -1;
+	var left = -1;
+	var right = -1;
+	var i = 0;
+	while (pos > border && i < borders.length) {
+		left = border;
+		border = borders[i++];
+	}
+	right = border;
+	return [left, right];
+}
+
+function getOverlayCanvas(natTable) {
+	// check for an overlay canvas
+	// create one if it has not been created yet
+	var overlayCanvas = document.getElementById("overlayCanvas");
+	const natTableCanvas = natTable.$el.get()[0].firstChild;
+	if (!overlayCanvas) {
+	    overlayCanvas = document.createElement("canvas");
+	    overlayCanvas.id = "overlayCanvas";
+	    overlayCanvas.width = natTableCanvas.width;
+	    overlayCanvas.height = natTableCanvas.height;
+
+	    const styles = "position:absolute;left:0;top:0;width:" + natTableCanvas.style.width + ";height:" + natTableCanvas.style.height + ";";
+	    overlayCanvas.style = styles;
+	    
+	    natTableCanvas.parentElement.appendChild(overlayCanvas);
+		        
+		const ntCtx = natTableCanvas.getContext("2d");
+	
+		const ctx = overlayCanvas.getContext("2d");
+		ctx.setTransform(ntCtx.getTransform());
+	}
+
+	return overlayCanvas;
 }

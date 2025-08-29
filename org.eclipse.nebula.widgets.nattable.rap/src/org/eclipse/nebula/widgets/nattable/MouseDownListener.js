@@ -12,9 +12,9 @@
 // ******************************************************************************/
 var handleEvent = function(event) {
     var columnHeaderDimensions = event.widget.getData("columnHeaderDimensions");
-    var columnBorders = event.widget.getData("columnBorders");
+    var columnResizeBorders = event.widget.getData("columnResizeBorders");
     var rowHeaderDimensions = event.widget.getData("rowHeaderDimensions");
-    var rowBorders = event.widget.getData("rowBorders");
+    var rowResizeBorders = event.widget.getData("rowResizeBorders");
 
     var columnDragEnabled = event.widget.getData("columnDragEnabled");
     var rowDragEnabled = event.widget.getData("rowDragEnabled");
@@ -24,16 +24,18 @@ var handleEvent = function(event) {
         if (columnHeaderDimensions) {
             let chd = JSON.parse(columnHeaderDimensions);
             if (event.y > chd[0] && event.y < chd[1]) {
-                for (let i = 0; i < columnBorders.length; i++) {
-                    let border = columnBorders[i];
+				let resize = false;
+                for (let i = 0; i < columnResizeBorders.length; i++) {
+                    let border = columnResizeBorders[i];
                     if (event.x > (border - 5) && event.x < (border + 5)) {
                         event.widget.setData("columnPositionToResize", i);
                         event.widget.setData("initialResizeX", border);
+						resize = true;
                         break;
                     }
                 }
                 
-                if (columnDragEnabled) {
+                if (columnDragEnabled && !resize) {
                     event.widget.setData("columnDragStartX", event.x);
                 }
             }
@@ -42,16 +44,18 @@ var handleEvent = function(event) {
         if (rowHeaderDimensions) {
             let rhd = JSON.parse(rowHeaderDimensions);
             if (event.x > rhd[0] && event.x < rhd[1]) {
-                for (let i = 0; i < rowBorders.length; i++) {
-                    let border = rowBorders[i];
+				let resize = false;
+                for (let i = 0; i < rowResizeBorders.length; i++) {
+                    let border = rowResizeBorders[i];
                     if (event.y > (border - 5) && event.y < (border + 5)) {
                         event.widget.setData("rowPositionToResize", i);
                         event.widget.setData("initialResizeY", border);
+						resize = true;
                         break;
                     }
                 }
         
-                if (rowDragEnabled) {
+                if (rowDragEnabled && !resize) {
                     event.widget.setData("rowDragStartY", event.y);
                 }
             }

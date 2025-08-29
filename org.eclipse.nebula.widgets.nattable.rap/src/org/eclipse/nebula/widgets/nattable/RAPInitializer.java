@@ -160,9 +160,11 @@ public class RAPInitializer {
             		"columnHeaderDimensions",
             		"rowHeaderDimensions",
             		"columnBorders", 
+            		"columnResizeBorders", 
             		"columnPositionToResize",
             		"initialResizeX",
             		"rowBorders", 
+            		"rowResizeBorders", 
             		"rowPositionToResize",
             		"initialResizeY",
             		"columnDragEnabled",
@@ -182,20 +184,25 @@ public class RAPInitializer {
                 		int[] columnHeaderDimensions = findColumnHeaderDimensions(natTable.getLayer());
                 		natTable.setData("columnHeaderDimensions", Arrays.toString(columnHeaderDimensions));
                 		
+                		MutableIntList columnResizeBorders = IntLists.mutable.empty();
                 		MutableIntList columnBorders = IntLists.mutable.empty();
                 		for (int i = 0; i < columnHeaderColumn; i++) {
             				// add a negative value to indicate that the column is not resizable
-            				columnBorders.add(-10);
-                		}
+            				columnResizeBorders.add(-10);
+            			}
+                		Rectangle firstBodyBounds = natTable.getCellByPosition(columnHeaderColumn, columnHeaderBottomRow).getBounds();
+                		columnBorders.add(firstBodyBounds.x);
                 		for (int i = columnHeaderColumn; i < natTable.getColumnCount(); i++) {
+                			Rectangle bounds = natTable.getCellByPosition(i, columnHeaderBottomRow).getBounds();
                 			if (natTable.isColumnPositionResizable(i)) {
-                				Rectangle bounds = natTable.getCellByPosition(i, columnHeaderBottomRow).getBounds();
-                				columnBorders.add(bounds.x + bounds.width);
+                				columnResizeBorders.add(bounds.x + bounds.width);
                 			} else {
                 				// add a negative value to indicate that the column is not resizable
-                				columnBorders.add(-10);
+                				columnResizeBorders.add(-10);
                 			}
+                			columnBorders.add(bounds.x + bounds.width);
                 		}
+                		natTable.setData("columnResizeBorders", columnResizeBorders.toArray());
                 		natTable.setData("columnBorders", columnBorders.toArray());
                 		
                 		if (findLayer(natTable.getLayer(), 0, ColumnReorderLayer.class) != null 
@@ -213,20 +220,25 @@ public class RAPInitializer {
                 		int[] rowHeaderDimensions = findRowHeaderDimensions(natTable.getLayer());
                 		natTable.setData("rowHeaderDimensions", Arrays.toString(rowHeaderDimensions));
 		                	
+                		MutableIntList rowResizeBorders = IntLists.mutable.empty();
 	                	MutableIntList rowBorders = IntLists.mutable.empty();
                 		for (int i = 0; i < rowHeaderRow; i++) {
             				// add a negative value to indicate that the row is not resizable
-                			rowBorders.add(-10);
+                			rowResizeBorders.add(-10);
                 		}
+                		Rectangle firstBodyBounds = natTable.getCellByPosition(rowHeaderRightmostColumn, rowHeaderRow).getBounds();
+                		rowBorders.add(firstBodyBounds.y);
 	                    for (int i = rowHeaderRow; i < natTable.getRowCount(); i++) {
+	                    	Rectangle bounds = natTable.getCellByPosition(rowHeaderRightmostColumn, i).getBounds();
 	                    	if (natTable.isRowPositionResizable(i)) {
-	                    		Rectangle bounds = natTable.getCellByPosition(rowHeaderRightmostColumn, i).getBounds();
-	                    		rowBorders.add(bounds.y + bounds.height);
+	                    		rowResizeBorders.add(bounds.y + bounds.height);
 	                    	} else {
 	                    		// add a negative value to indicate that the row is not resizable
-	                    		rowBorders.add(-10);
+	                    		rowResizeBorders.add(-10);
 	                    	}
+	                    	rowBorders.add(bounds.y + bounds.height);
 	                    }
+	                    natTable.setData("rowResizeBorders", rowResizeBorders.toArray());
 	                    natTable.setData("rowBorders", rowBorders.toArray());
                 	}
 
