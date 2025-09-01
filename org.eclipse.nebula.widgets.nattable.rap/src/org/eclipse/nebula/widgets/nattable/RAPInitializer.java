@@ -31,6 +31,8 @@ import org.eclipse.nebula.widgets.nattable.layer.CompositeLayer;
 import org.eclipse.nebula.widgets.nattable.layer.ILayer;
 import org.eclipse.nebula.widgets.nattable.layer.LabelStack;
 import org.eclipse.nebula.widgets.nattable.layer.cell.ILayerCell;
+import org.eclipse.nebula.widgets.nattable.print.command.TurnViewportOffCommand;
+import org.eclipse.nebula.widgets.nattable.print.command.TurnViewportOnCommand;
 import org.eclipse.nebula.widgets.nattable.reorder.ColumnReorderLayer;
 import org.eclipse.nebula.widgets.nattable.reorder.RowReorderLayer;
 import org.eclipse.nebula.widgets.nattable.reorder.command.ColumnReorderCommand;
@@ -173,13 +175,22 @@ public class RAPInitializer {
             		"rowDragStartY");
         	natTable.setData("control", WidgetUtil.getId(natTable));
         	
+        	// check if there is a ViewportLayer in the stack
+        	// if one exists, add scrollbars by using Slider
+        	natTable.doCommand(new TurnViewportOffCommand());
+			ViewportLayer viewPortLayer = findLayer(natTable.getLayer(), 0, ViewportLayer.class);
+			if (viewPortLayer != null) {
+				addScrollbars(natTable, viewPortLayer);
+			}
+			natTable.doCommand(new TurnViewportOnCommand());
+        	
             natTable.addPaintListener(new PaintListener() {
 
                 @Override
                 public void paintControl(PaintEvent event) {
                 	int columnHeaderBottomRow = findColumnHeaderBottomRow(natTable.getLayer());
                 	int rowHeaderRightmostColumn = findRowHeaderRightmostColumn(natTable.getLayer());
-                	if (columnHeaderBottomRow >= 0) {
+                	if (columnHeaderBottomRow >= 0 && natTable.getColumnCount() > 0) {
                 		int columnHeaderColumn = rowHeaderRightmostColumn >= 0 ? rowHeaderRightmostColumn + 1 : 0;
                 		int[] columnHeaderDimensions = findColumnHeaderDimensions(natTable.getLayer());
                 		natTable.setData("columnHeaderDimensions", Arrays.toString(columnHeaderDimensions));
@@ -215,7 +226,7 @@ public class RAPInitializer {
                 		}
                 	}          		
 
-                	if (rowHeaderRightmostColumn >= 0) {
+                	if (rowHeaderRightmostColumn >= 0 && natTable.getRowCount() > 0) {
                 		int rowHeaderRow = columnHeaderBottomRow >= 0 ? columnHeaderBottomRow + 1 : 0;
                 		int[] rowHeaderDimensions = findRowHeaderDimensions(natTable.getLayer());
                 		natTable.setData("rowHeaderDimensions", Arrays.toString(rowHeaderDimensions));
@@ -248,13 +259,6 @@ public class RAPInitializer {
             natTable.addListener(SWT.MouseDown, MouseDownClientListener.getInstance());
             natTable.addListener(SWT.MouseMove, MouseMoveClientListener.getInstance());
             addMouseUpListener(natTable);
-
-			// check if there is a ViewportLayer in the stack
-        	// if one exists, add scrollbars by using Slider
-			ViewportLayer viewPortLayer = findLayer(natTable.getLayer(), 0, ViewportLayer.class);
-			if (viewPortLayer != null) {
-				addScrollbars(natTable, viewPortLayer);
-			}
             
 			// finally open a ServerPushSession to be able to push events to the client from
 			// a background thread. Needed for the EventConflaterChain that collects visual
@@ -308,6 +312,9 @@ public class RAPInitializer {
             for (ILayer underlyingLayer : underlyingLayers) {
                 if (underlyingLayer != null) {
                     result = findLayer(underlyingLayer, columnPosition, layerClass);
+                    if (result != null) {
+                    	break;
+                    }
                 }
             }
         }
