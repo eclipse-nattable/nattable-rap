@@ -593,22 +593,24 @@ public class RAPInitializer {
             if (data != null) {
                 String[] dataArray = data.toString().split(" ");
                 if ("columnResize".equals(dataArray[0])) {
+                	event.doit = false;
                     int pos = Integer.parseInt(dataArray[1]);
                     int widthDiff = Integer.parseInt(dataArray[2]);
                     int width = natTable.getColumnWidthByPosition(pos) + widthDiff;
                     if (width > 0) {
                     	natTable.doCommand(new ColumnResizeCommand(natTable, pos, width));
                     }
-                    event.doit = false;                }
+                }
                 else if ("rowResize".equals(dataArray[0])) {
+                	event.doit = false;
                 	int pos = Integer.parseInt(dataArray[1]);
                 	int heightDiff = Integer.parseInt(dataArray[2]);
                 	int height = natTable.getRowHeightByPosition(pos) + heightDiff;
                 	if (height > 0) {
                 		natTable.doCommand(new RowResizeCommand(natTable, pos, height));
                 	}
-                	event.doit = false;
                 } else if ("columnDrag".equals(dataArray[0])) {
+                	event.doit = false;
 					int startX = Integer.parseInt(dataArray[1]);
 					// can not use the event.x and event.y as it seems they change somehow in the processing
 					int endX = Integer.parseInt(dataArray[2]);
@@ -621,7 +623,6 @@ public class RAPInitializer {
 			        if (regionLabels != null
 			                && regionLabels.hasLabel(GridRegion.GROUP_BY_REGION)) {
 			            natTable.doCommand(new GroupByCommand(GroupByAction.ADD, natTable.getColumnIndexByPosition(fromColumn)));
-			            event.doit = false;
 			        } else if (regionLabels != null 
 			        		&& regionLabels.hasLabel(GridRegion.COLUMN_GROUP_HEADER)) {
 			        	int toRow = natTable.getRowPositionByY(endY);
@@ -638,13 +639,12 @@ public class RAPInitializer {
 			        		toColumn = cell.getOriginColumnPosition() + cell.getColumnSpan();
 			        	}
 			        	natTable.doCommand(new ColumnGroupReorderCommand(natTable, level, fromColumn, toColumn));
-			        	event.doit = false;
 			        } else {
 			        	int toColumn = getDragToGridColumnPosition(natTable, endX);
 			        	natTable.doCommand(new ColumnReorderCommand(natTable, fromColumn, toColumn));
-			        	event.doit = false;
 			        }
 				} else if ("rowDrag".equals(dataArray[0])) {
+	            	event.doit = false;
 					int startY = Integer.parseInt(dataArray[1]);
 					int endX = Integer.parseInt(dataArray[2]);
 					int endY = Integer.parseInt(dataArray[3]);
@@ -669,10 +669,8 @@ public class RAPInitializer {
 			        		toRow = cell.getOriginRowPosition() + cell.getRowSpan();
 			        	}
 			        	natTable.doCommand(new RowGroupReorderCommand(natTable, level, fromRow, toRow));
-			        	event.doit = false;
 			        } else {
 			        	natTable.doCommand(new RowReorderCommand(natTable, fromRow, toRow));
-			        	event.doit = false;
 			        }
 				}
             }

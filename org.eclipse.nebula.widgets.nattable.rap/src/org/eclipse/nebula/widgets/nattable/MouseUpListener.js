@@ -70,41 +70,54 @@ var handleEvent = function(event) {
     
     var columnDragStartX = event.widget.getData("columnDragStartX");
     if (columnDragStartX !== null) {
-        var connection = rwt.remote.Connection.getInstance();
-        connection.getMessageWriter().appendNotify(
-            event.widget.getData("control"),
-            "MouseUp",
-            {
-                count: event.count,
-                button: event.button,
-                x: event.x,
-                y: event.y,
-                time: 0,
-                data: "columnDrag " + columnDragStartX + " " + event.x + " " + event.y
-            }
-        );
-        connection.send();
+		
+		if (!treatAsClick(columnDragStartX, event.x)) {
+	        var connection = rwt.remote.Connection.getInstance();
+	        connection.getMessageWriter().appendNotify(
+	            event.widget.getData("control"),
+	            "MouseUp",
+	            {
+	                count: event.count,
+	                button: event.button,
+	                x: event.x,
+	                y: event.y,
+	                time: 0,
+	                data: "columnDrag " + columnDragStartX + " " + event.x + " " + event.y
+	            }
+	        );
+	        connection.send();
+		}
         
         event.widget.setData("columnDragStartX", null);
     }
     
     var rowDragStartY = event.widget.getData("rowDragStartY");
     if (rowDragStartY !== null) {
-        var connection = rwt.remote.Connection.getInstance();
-        connection.getMessageWriter().appendNotify(
-            event.widget.getData("control"),
-            "MouseUp",
-            {
-                count: event.count,
-                button: event.button,
-                x: event.x,
-                y: event.y,
-                time: 0,
-                data: "rowDrag " + rowDragStartY + " " + event.x + " " + event.y
-            }
-        );
-        connection.send();
+		
+		if (!treatAsClick(rowDragStartY, event.y)) {
+	        var connection = rwt.remote.Connection.getInstance();
+	        connection.getMessageWriter().appendNotify(
+	            event.widget.getData("control"),
+	            "MouseUp",
+	            {
+	                count: event.count,
+	                button: event.button,
+	                x: event.x,
+	                y: event.y,
+	                time: 0,
+	                data: "rowDrag " + rowDragStartY + " " + event.x + " " + event.y
+	            }
+	        );
+	        connection.send();
+		}
 
         event.widget.setData("rowDragStartY", null);
     }
 };
+
+function treatAsClick(dragPos, eventPos) {
+	if (eventPos > (dragPos +5) || eventPos < (dragPos -5)) {
+		return false;
+	}
+	return true;
+}
