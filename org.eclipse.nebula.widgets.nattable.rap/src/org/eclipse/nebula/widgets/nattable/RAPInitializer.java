@@ -205,28 +205,31 @@ public class RAPInitializer {
             				// add a negative value to indicate that the column is not resizable
             				columnResizeBorders.add(-10);
             			}
-                		Rectangle firstBodyBounds = natTable.getCellByPosition(columnHeaderColumn, columnHeaderBottomRow).getBounds();
-                		columnBorders.add(firstBodyBounds.x);
-                		for (int i = columnHeaderColumn; i < natTable.getColumnCount(); i++) {
-                			Rectangle bounds = natTable.getCellByPosition(i, columnHeaderBottomRow).getBounds();
-                			if (natTable.isColumnPositionResizable(i)) {
-                				columnResizeBorders.add(bounds.x + bounds.width);
-                			} else {
-                				// add a negative value to indicate that the column is not resizable
-                				columnResizeBorders.add(-10);
+                		ILayerCell firstBodyCell = natTable.getCellByPosition(columnHeaderColumn, columnHeaderBottomRow);
+                		if (firstBodyCell != null) {
+                			Rectangle firstBodyBounds = firstBodyCell.getBounds();
+                			columnBorders.add(firstBodyBounds.x);
+                			for (int i = columnHeaderColumn; i < natTable.getColumnCount(); i++) {
+                				Rectangle bounds = natTable.getCellByPosition(i, columnHeaderBottomRow).getBounds();
+                				if (natTable.isColumnPositionResizable(i)) {
+                					columnResizeBorders.add(bounds.x + bounds.width);
+                				} else {
+                					// add a negative value to indicate that the column is not resizable
+                					columnResizeBorders.add(-10);
+                				}
+                				columnBorders.add(bounds.x + bounds.width);
                 			}
-                			columnBorders.add(bounds.x + bounds.width);
-                		}
-                		natTable.setData("columnResizeBorders", columnResizeBorders.toArray());
-                		natTable.setData("columnBorders", columnBorders.toArray());
-                		
-                		if (findLayer(natTable.getLayer(), 0, ColumnReorderLayer.class) != null 
-                				|| natTable.getProvidedLabels().contains(GridRegion.GROUP_BY_REGION)) {
-							natTable.setData("columnDragEnabled", Boolean.TRUE);
-						}
-                		
-                		if (findLayer(natTable.getLayer(), 0, RowReorderLayer.class) != null) {
-                			natTable.setData("rowDragEnabled", Boolean.TRUE);
+                			natTable.setData("columnResizeBorders", columnResizeBorders.toArray());
+                			natTable.setData("columnBorders", columnBorders.toArray());
+                			
+                			if (findLayer(natTable.getLayer(), 0, ColumnReorderLayer.class) != null 
+                					|| natTable.getProvidedLabels().contains(GridRegion.GROUP_BY_REGION)) {
+                				natTable.setData("columnDragEnabled", Boolean.TRUE);
+                			}
+                			
+                			if (findLayer(natTable.getLayer(), 0, RowReorderLayer.class) != null) {
+                				natTable.setData("rowDragEnabled", Boolean.TRUE);
+                			}
                 		}
                 	}          		
 
@@ -241,20 +244,23 @@ public class RAPInitializer {
             				// add a negative value to indicate that the row is not resizable
                 			rowResizeBorders.add(-10);
                 		}
-                		Rectangle firstBodyBounds = natTable.getCellByPosition(rowHeaderRightmostColumn, rowHeaderRow).getBounds();
-                		rowBorders.add(firstBodyBounds.y);
-	                    for (int i = rowHeaderRow; i < natTable.getRowCount(); i++) {
-	                    	Rectangle bounds = natTable.getCellByPosition(rowHeaderRightmostColumn, i).getBounds();
-	                    	if (natTable.isRowPositionResizable(i)) {
-	                    		rowResizeBorders.add(bounds.y + bounds.height);
-	                    	} else {
-	                    		// add a negative value to indicate that the row is not resizable
-	                    		rowResizeBorders.add(-10);
-	                    	}
-	                    	rowBorders.add(bounds.y + bounds.height);
-	                    }
-	                    natTable.setData("rowResizeBorders", rowResizeBorders.toArray());
-	                    natTable.setData("rowBorders", rowBorders.toArray());
+                		ILayerCell firstBodyCell = natTable.getCellByPosition(rowHeaderRightmostColumn, rowHeaderRow);
+                		if (firstBodyCell != null) {
+                			Rectangle firstBodyBounds = firstBodyCell.getBounds();
+                			rowBorders.add(firstBodyBounds.y);
+                			for (int i = rowHeaderRow; i < natTable.getRowCount(); i++) {
+                				Rectangle bounds = natTable.getCellByPosition(rowHeaderRightmostColumn, i).getBounds();
+                				if (natTable.isRowPositionResizable(i)) {
+                					rowResizeBorders.add(bounds.y + bounds.height);
+                				} else {
+                					// add a negative value to indicate that the row is not resizable
+                					rowResizeBorders.add(-10);
+                				}
+                				rowBorders.add(bounds.y + bounds.height);
+                			}
+                			natTable.setData("rowResizeBorders", rowResizeBorders.toArray());
+                			natTable.setData("rowBorders", rowBorders.toArray());
+                		}
                 	}
 
                 }
