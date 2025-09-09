@@ -60,6 +60,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.Slider;
+import org.eclipse.swt.widgets.Widget;
 
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.agent.ByteBuddyAgent;
@@ -179,9 +180,12 @@ public class RAPInitializer {
         	// if one exists, add scrollbars by using Slider
         	natTable.doCommand(new TurnViewportOffCommand());
 			ViewportLayer viewPortLayer = findLayer(natTable.getLayer(), 0, ViewportLayer.class);
-			if (viewPortLayer != null) {
+			if (viewPortLayer != null && (viewPortLayer.getVerticalScroller() == null && viewPortLayer.getHorizontalScroller() == null)) {
 				addScrollbars(natTable, viewPortLayer);
+			} else if (viewPortLayer != null && viewPortLayer.getVerticalScroller() != null) {
+				addMouseWheelListener(natTable, viewPortLayer.getVerticalScroller());
 			}
+			
 			natTable.doCommand(new TurnViewportOnCommand());
         	
             natTable.addPaintListener(new PaintListener() {
@@ -545,7 +549,7 @@ public class RAPInitializer {
 		    .applyTo(horizontal); 
 		IScroller<Slider> horizontalScroller = new SliderScroller(horizontal, false);
 
-		addMouseWheelListener(natTable, vertical);
+		addMouseWheelListener(natTable, verticalScroller);
 		
 		viewportLayer.setVerticalScroller(verticalScroller);
 		viewportLayer.setHorizontalScroller(horizontalScroller);
@@ -557,22 +561,22 @@ public class RAPInitializer {
 	 * 
 	 * @param natTable The NatTable instance to which the mouse wheel listener
 	 *                 should be added.
-	 * @param slider   The slider instance that is used to scroll the NatTable.
+	 * @param scroller The {@link IScroller} that is used to scroll the NatTable.
 	 */
-    public static void addMouseWheelListener(NatTable natTable, Slider slider) {
+    public static void addMouseWheelListener(NatTable natTable, IScroller<?> scroller) {
     	
         natTable.addListener(SWT.MouseWheel, MouseWheelClientListener.getInstance());
 
         natTable.addListener(SWT.MouseWheel, event -> {
             if (event.count > 0) {
-                slider.setSelection(slider.getSelection() - slider.getIncrement());
+                scroller.setSelection(scroller.getSelection() - scroller.getIncrement());
             }
             else if (event.count < 0) {
-            	slider.setSelection(slider.getSelection() + slider.getIncrement());
+            	scroller.setSelection(scroller.getSelection() + scroller.getIncrement());
             }
             Event scrollEvent = new Event();
             scrollEvent.detail = 4;
-            slider.notifyListeners(SWT.Selection, scrollEvent);
+            ((Widget)scroller.getUnderlying()).notifyListeners(SWT.Selection, scrollEvent);
         });
 
 	}

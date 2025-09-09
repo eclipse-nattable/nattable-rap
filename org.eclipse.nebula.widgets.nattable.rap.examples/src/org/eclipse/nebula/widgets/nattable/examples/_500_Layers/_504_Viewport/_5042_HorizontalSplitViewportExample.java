@@ -13,7 +13,9 @@
 package org.eclipse.nebula.widgets.nattable.examples._500_Layers._504_Viewport;
 
 import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.nebula.widgets.nattable.NatTable;
+import org.eclipse.nebula.widgets.nattable.config.DefaultNatTableStyleConfiguration;
 import org.eclipse.nebula.widgets.nattable.data.ExtendedReflectiveColumnPropertyAccessor;
 import org.eclipse.nebula.widgets.nattable.data.IColumnPropertyAccessor;
 import org.eclipse.nebula.widgets.nattable.data.IDataProvider;
@@ -30,6 +32,7 @@ import org.eclipse.nebula.widgets.nattable.print.command.MultiTurnViewportOffCom
 import org.eclipse.nebula.widgets.nattable.print.command.MultiTurnViewportOnCommandHandler;
 import org.eclipse.nebula.widgets.nattable.util.ClientAreaAdapter;
 import org.eclipse.nebula.widgets.nattable.util.GUIHelper;
+import org.eclipse.nebula.widgets.nattable.viewport.IScroller;
 import org.eclipse.nebula.widgets.nattable.viewport.SliderScroller;
 import org.eclipse.nebula.widgets.nattable.viewport.ViewportLayer;
 import org.eclipse.swt.SWT;
@@ -106,20 +109,18 @@ public class _5042_HorizontalSplitViewportExample extends AbstractNatExample {
         // Wrap NatTable in composite so we can slap on the external horizontal
         // sliders
         Composite composite = new Composite(parent, SWT.NONE);
-        GridLayout gridLayout = new GridLayout(1, false);
-        gridLayout.marginHeight = 0;
-        gridLayout.marginWidth = 0;
-        gridLayout.horizontalSpacing = 0;
-        gridLayout.verticalSpacing = 0;
-        composite.setLayout(gridLayout);
+        GridLayoutFactory
+                .swtDefaults()
+                .numColumns(2)
+                .margins(0, 0)
+                .spacing(0, 0)
+                .applyTo(composite);
 
-        NatTable natTable = new NatTable(composite, compositeLayer);
-        GridData gridData = new GridData();
-        gridData.horizontalAlignment = GridData.FILL;
-        gridData.verticalAlignment = GridData.FILL;
-        gridData.grabExcessHorizontalSpace = true;
-        gridData.grabExcessVerticalSpace = true;
-        natTable.setLayoutData(gridData);
+        NatTable natTable = new NatTable(composite, compositeLayer, false);
+        GridDataFactory
+                .fillDefaults()
+                .grab(true, true)
+                .applyTo(natTable);
 
         // set the width of the left viewport to only showing 2 columns at the
         // same time - need to set the width AFTER creating the NatTable to take
@@ -128,6 +129,9 @@ public class _5042_HorizontalSplitViewportExample extends AbstractNatExample {
         leftClientAreaAdapter.setWidth(leftWidth);
 
         createSplitSliders(composite, viewportLayerLeft, viewportLayerRight);
+
+        natTable.addConfiguration(new DefaultNatTableStyleConfiguration());
+        natTable.configure();
 
         // add an IOverlayPainter to ensure the right border of the left
         // viewport always this is necessary because the left border of layer
@@ -148,6 +152,32 @@ public class _5042_HorizontalSplitViewportExample extends AbstractNatExample {
     }
 
     private void createSplitSliders(Composite natTableParent, ViewportLayer left, ViewportLayer right) {
+
+        // calculate the slider width according to the display scaling
+        int sliderWidth = GUIHelper.convertVerticalPixelToDpi(16, true);
+
+        // vertical scrollbar wrapped in another composite for layout
+        Composite verticalComposite = new Composite(natTableParent, SWT.NONE);
+        GridLayoutFactory
+                .swtDefaults()
+                .margins(0, 0)
+                .spacing(0, 0)
+                .applyTo(verticalComposite);
+        GridDataFactory
+                .swtDefaults()
+                .hint(sliderWidth, SWT.DEFAULT)
+                .align(SWT.BEGINNING, SWT.FILL)
+                .grab(false, true)
+                .applyTo(verticalComposite);
+
+        Slider vertical = new Slider(verticalComposite, SWT.VERTICAL);
+        GridDataFactory
+                .fillDefaults()
+                .grab(true, true)
+                .applyTo(vertical);
+        IScroller<Slider> verticalScroller = new SliderScroller(vertical, false);
+        left.setVerticalScroller(verticalScroller);
+        right.setVerticalScroller(verticalScroller);
 
         // calculate the slider height according to the display scaling
         int sliderHeight = GUIHelper.convertHorizontalPixelToDpi(16, true);

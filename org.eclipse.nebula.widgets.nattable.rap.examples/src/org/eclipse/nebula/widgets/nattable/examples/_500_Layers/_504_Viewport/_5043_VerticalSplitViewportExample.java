@@ -12,7 +12,10 @@
  *******************************************************************************/
 package org.eclipse.nebula.widgets.nattable.examples._500_Layers._504_Viewport;
 
+import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.nebula.widgets.nattable.NatTable;
+import org.eclipse.nebula.widgets.nattable.config.DefaultNatTableStyleConfiguration;
 import org.eclipse.nebula.widgets.nattable.data.ExtendedReflectiveColumnPropertyAccessor;
 import org.eclipse.nebula.widgets.nattable.data.IColumnPropertyAccessor;
 import org.eclipse.nebula.widgets.nattable.data.IDataProvider;
@@ -29,6 +32,7 @@ import org.eclipse.nebula.widgets.nattable.print.command.MultiTurnViewportOffCom
 import org.eclipse.nebula.widgets.nattable.print.command.MultiTurnViewportOnCommandHandler;
 import org.eclipse.nebula.widgets.nattable.util.ClientAreaAdapter;
 import org.eclipse.nebula.widgets.nattable.util.GUIHelper;
+import org.eclipse.nebula.widgets.nattable.viewport.IScroller;
 import org.eclipse.nebula.widgets.nattable.viewport.SliderScroller;
 import org.eclipse.nebula.widgets.nattable.viewport.ViewportLayer;
 import org.eclipse.swt.SWT;
@@ -111,7 +115,7 @@ public class _5043_VerticalSplitViewportExample extends AbstractNatExample {
         gridLayout.verticalSpacing = 0;
         composite.setLayout(gridLayout);
 
-        NatTable natTable = new NatTable(composite, compositeLayer);
+        NatTable natTable = new NatTable(composite, compositeLayer, false);
         GridData gridData = new GridData();
         gridData.horizontalAlignment = GridData.FILL;
         gridData.verticalAlignment = GridData.FILL;
@@ -126,6 +130,9 @@ public class _5043_VerticalSplitViewportExample extends AbstractNatExample {
         topClientAreaAdapter.setHeight(topHeight);
 
         createSplitSliders(composite, viewportLayerTop, viewportLayerBottom);
+
+        natTable.addConfiguration(new DefaultNatTableStyleConfiguration());
+        natTable.configure();
 
         // add an IOverlayPainter to ensure the right border of the left
         // viewport always this is necessary because the left border of layer
@@ -194,5 +201,28 @@ public class _5043_VerticalSplitViewportExample extends AbstractNatExample {
         sliderBottom.setLayoutData(gridData);
 
         bottom.setVerticalScroller(new SliderScroller(sliderBottom, false));
+
+        // horizontal scrollbar wrapped in another composite for layout
+        Composite horizontalComposite = new Composite(natTableParent, SWT.NONE);
+        GridLayoutFactory
+                .swtDefaults()
+                .margins(0, 0)
+                .spacing(0, 0)
+                .applyTo(horizontalComposite);
+        GridDataFactory
+                .swtDefaults()
+                .hint(SWT.DEFAULT, 16)
+                .align(SWT.FILL, SWT.BEGINNING)
+                .grab(true, false)
+                .applyTo(horizontalComposite);
+
+        Slider horizontal = new Slider(horizontalComposite, SWT.HORIZONTAL);
+        GridDataFactory
+                .fillDefaults()
+                .grab(true, true)
+                .applyTo(horizontal);
+        IScroller<Slider> horizontalScroller = new SliderScroller(horizontal, false);
+        top.setHorizontalScroller(horizontalScroller);
+        bottom.setHorizontalScroller(horizontalScroller);
     }
 }
