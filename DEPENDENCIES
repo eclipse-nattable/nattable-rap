@@ -1,4 +1,4 @@
-maven/mavencentral/com.github.virtuald/curvesapi/1.08, BSD-3-Clause, approved, clearlydefined
+maven/mavencentral/com.github.virtuald/curvesapi/1.08, BSD-3-Clause AND Apache-2.0, approved, #23170
 maven/mavencentral/com.glazedlists/glazedlists/1.11.0, MPL-2.0 AND Apache-2.0, approved, CQ20790
 maven/mavencentral/com.ibm.icu/icu4j/75.1, Unicode-TOU AND ICU AND BSD-3-Clause AND NAIST-2003 AND BSD-2-Clause AND LicenseRef-Public-domain AND GPL-2.0-or-later WITH Autoconf-exception-2.0 AND GPL-3.0-or-later WITH Autoconf-exception-3.0 AND NTP, approved, #14415
 maven/mavencentral/com.zaxxer/SparseBitSet/1.3, Apache-2.0, approved, #10726
@@ -9,11 +9,11 @@ maven/mavencentral/jakarta.annotation/jakarta.annotation-api/2.1.1, EPL-2.0 OR G
 maven/mavencentral/jakarta.inject/jakarta.inject-api/2.0.1, Apache-2.0, approved, ee4j.cdi
 maven/mavencentral/jakarta.servlet/jakarta.servlet-api/6.1.0, EPL-2.0 OR GPL-2.0-only with Classpath-exception-2.0, approved, ee4j.servlet
 maven/mavencentral/junit/junit/4.13.2, EPL-2.0, approved, CQ23636
-maven/mavencentral/net.bytebuddy/byte-buddy-agent/1.17.6, Apache-2.0, approved, #19238
-maven/mavencentral/net.bytebuddy/byte-buddy/1.17.6, Apache-2.0 AND BSD-3-Clause, approved, #19239
+maven/mavencentral/net.bytebuddy/byte-buddy-agent/1.17.7, Apache-2.0, approved, #19238
+maven/mavencentral/net.bytebuddy/byte-buddy/1.17.7, Apache-2.0 AND BSD-3-Clause, approved, #19239
 maven/mavencentral/org.apache.aries.spifly/org.apache.aries.spifly.dynamic.bundle/1.3.7, Apache-2.0, approved, #15243
 maven/mavencentral/org.apache.commons/commons-collections4/4.5.0, Apache-2.0 AND LicenseRef-Public-Domain, approved, #20791
-maven/mavencentral/org.apache.commons/commons-compress/1.27.1, Apache-2.0 AND (Apache-2.0 AND BSD-3-Clause), approved, #17651
+maven/mavencentral/org.apache.commons/commons-compress/1.28.0, Apache-2.0 AND (Apache-2.0 AND BSD-3-Clause), approved, #22677
 maven/mavencentral/org.apache.commons/commons-fileupload2-core/2.0.0-M2, Apache-2.0, approved, #15738
 maven/mavencentral/org.apache.commons/commons-fileupload2-jakarta-servlet6/2.0.0-M2, Apache-2.0, approved, #21710
 maven/mavencentral/org.apache.commons/commons-lang3/3.18.0, Apache-2.0, approved, #22470
@@ -59,7 +59,7 @@ maven/mavencentral/org.eclipse.jetty/jetty-session/12.0.12, EPL-2.0 OR Apache-2.
 maven/mavencentral/org.eclipse.jetty/jetty-util-ajax/12.0.12, EPL-2.0 OR Apache-2.0, approved, rt.jetty
 maven/mavencentral/org.eclipse.jetty/jetty-util/12.0.12, EPL-2.0 OR Apache-2.0, approved, rt.jetty
 maven/mavencentral/org.eclipse.nebula.widgets.nattable/org.eclipse.nebula.widgets.nattable.rap/2.6.0-SNAPSHOT, EPL-2.0, approved, technology.nebula.nattable
-maven/mavencentral/org.hamcrest/hamcrest-core/2.2, BSD-3-Clause, approved, clearlydefined
+maven/mavencentral/org.hamcrest/hamcrest-core/2.2, BSD-3-Clause, approved, #23163
 maven/mavencentral/org.hamcrest/hamcrest/3.0, BSD-3-Clause, approved, #17661
 maven/mavencentral/org.junit.jupiter/junit-jupiter-api/5.13.4, EPL-2.0, approved, #21577
 maven/mavencentral/org.junit.jupiter/junit-jupiter-engine/5.13.4, EPL-2.0, approved, #21699
@@ -97,12 +97,12 @@ maven/mavencentral/org.slf4j/slf4j-simple/2.0.17, MIT, approved, #10372
 maven/mavencentral/xml-apis/xml-apis-ext/1.3.04, Apache-2.0, approved, CQ1448
 maven/mavencentral/xml-apis/xml-apis/1.4.01, Apache-2.0 OR LicenseRef-Public-Domain OR W3C, approved, CQ9621
 p2/orbit/p2.eclipse.feature/org.eclipse.license/2.0.2.v20181016-2210, EPL-2.0, approved, eclipse.platform
-p2/orbit/p2.eclipse.feature/org.eclipse.nebula.widgets.nattable.core.feature.source/2.6.0.202507140649, EPL-2.0, approved, technology.nebula.nattable
-p2/orbit/p2.eclipse.feature/org.eclipse.nebula.widgets.nattable.core.feature/2.6.0.202507140649, EPL-2.0, approved, technology.nebula.nattable
-p2/orbit/p2.eclipse.feature/org.eclipse.nebula.widgets.nattable.extension.glazedlists.feature.source/2.6.0.202507140649, EPL-2.0, approved, technology.nebula.nattable
-p2/orbit/p2.eclipse.feature/org.eclipse.nebula.widgets.nattable.extension.glazedlists.feature/2.6.0.202507140649, EPL-2.0, approved, technology.nebula.nattable
-p2/orbit/p2.eclipse.feature/org.eclipse.nebula.widgets.nattable.extension.poi.feature.source/2.6.0.202507140649, EPL-2.0, approved, technology.nebula.nattable
-p2/orbit/p2.eclipse.feature/org.eclipse.nebula.widgets.nattable.extension.poi.feature/2.6.0.202507140649, EPL-2.0, approved, technology.nebula.nattable
+p2/orbit/p2.eclipse.feature/org.eclipse.nebula.widgets.nattable.core.feature.source/2.6.0.202509190631, EPL-2.0, approved, technology.nebula.nattable
+p2/orbit/p2.eclipse.feature/org.eclipse.nebula.widgets.nattable.core.feature/2.6.0.202509190631, EPL-2.0, approved, technology.nebula.nattable
+p2/orbit/p2.eclipse.feature/org.eclipse.nebula.widgets.nattable.extension.glazedlists.feature.source/2.6.0.202509190631, EPL-2.0, approved, technology.nebula.nattable
+p2/orbit/p2.eclipse.feature/org.eclipse.nebula.widgets.nattable.extension.glazedlists.feature/2.6.0.202509190631, EPL-2.0, approved, technology.nebula.nattable
+p2/orbit/p2.eclipse.feature/org.eclipse.nebula.widgets.nattable.extension.poi.feature.source/2.6.0.202509190631, EPL-2.0, approved, technology.nebula.nattable
+p2/orbit/p2.eclipse.feature/org.eclipse.nebula.widgets.nattable.extension.poi.feature/2.6.0.202509190631, EPL-2.0, approved, technology.nebula.nattable
 p2/orbit/p2.eclipse.feature/org.eclipse.rap.equinox.target.feature/4.0.0.20240904-1200, EPL-1.0, approved, rt.rap.incubator
 p2/orbit/p2.eclipse.feature/org.eclipse.rap.examples.feature/4.0.0.20240904-1200, EPL-1.0, approved, rt.rap.incubator
 p2/orbit/p2.eclipse.feature/org.eclipse.rap.feature/4.0.0.20240904-1200, EPL-1.0, approved, rt.rap.incubator
@@ -166,14 +166,14 @@ p2/orbit/p2.eclipse.plugin/org.eclipse.help.source/3.10.400.v20240415-0528, EPL-
 p2/orbit/p2.eclipse.plugin/org.eclipse.help/3.10.400.v20240415-0528, EPL-2.0, approved, eclipse.platform
 p2/orbit/p2.eclipse.plugin/org.eclipse.jdt.junit.runtime.source/3.7.500.v20240702-1918, EPL-2.0, approved, eclipse.jdt
 p2/orbit/p2.eclipse.plugin/org.eclipse.jdt.junit.runtime/3.7.500.v20240702-1918, EPL-2.0, approved, eclipse.jdt
-p2/orbit/p2.eclipse.plugin/org.eclipse.nebula.widgets.nattable.core.source/2.6.0.202507140649, EPL-2.0, approved, technology.nebula.nattable
-p2/orbit/p2.eclipse.plugin/org.eclipse.nebula.widgets.nattable.core/2.6.0.202507140649, EPL-2.0, approved, technology.nebula.nattable
-p2/orbit/p2.eclipse.plugin/org.eclipse.nebula.widgets.nattable.dataset.source/2.6.0.202507140649, EPL-2.0, approved, technology.nebula.nattable
-p2/orbit/p2.eclipse.plugin/org.eclipse.nebula.widgets.nattable.dataset/2.6.0.202507140649, EPL-2.0, approved, technology.nebula.nattable
-p2/orbit/p2.eclipse.plugin/org.eclipse.nebula.widgets.nattable.extension.glazedlists.source/2.6.0.202507140649, EPL-2.0, approved, technology.nebula.nattable
-p2/orbit/p2.eclipse.plugin/org.eclipse.nebula.widgets.nattable.extension.glazedlists/2.6.0.202507140649, EPL-2.0, approved, technology.nebula.nattable
-p2/orbit/p2.eclipse.plugin/org.eclipse.nebula.widgets.nattable.extension.poi.source/2.6.0.202507140649, EPL-2.0, approved, technology.nebula.nattable
-p2/orbit/p2.eclipse.plugin/org.eclipse.nebula.widgets.nattable.extension.poi/2.6.0.202507140649, EPL-2.0, approved, technology.nebula.nattable
+p2/orbit/p2.eclipse.plugin/org.eclipse.nebula.widgets.nattable.core.source/2.6.0.202509190631, EPL-2.0, approved, technology.nebula.nattable
+p2/orbit/p2.eclipse.plugin/org.eclipse.nebula.widgets.nattable.core/2.6.0.202509190631, EPL-2.0, approved, technology.nebula.nattable
+p2/orbit/p2.eclipse.plugin/org.eclipse.nebula.widgets.nattable.dataset.source/2.6.0.202509190631, EPL-2.0, approved, technology.nebula.nattable
+p2/orbit/p2.eclipse.plugin/org.eclipse.nebula.widgets.nattable.dataset/2.6.0.202509190631, EPL-2.0, approved, technology.nebula.nattable
+p2/orbit/p2.eclipse.plugin/org.eclipse.nebula.widgets.nattable.extension.glazedlists.source/2.6.0.202509190631, EPL-2.0, approved, technology.nebula.nattable
+p2/orbit/p2.eclipse.plugin/org.eclipse.nebula.widgets.nattable.extension.glazedlists/2.6.0.202509190631, EPL-2.0, approved, technology.nebula.nattable
+p2/orbit/p2.eclipse.plugin/org.eclipse.nebula.widgets.nattable.extension.poi.source/2.6.0.202509190631, EPL-2.0, approved, technology.nebula.nattable
+p2/orbit/p2.eclipse.plugin/org.eclipse.nebula.widgets.nattable.extension.poi/2.6.0.202509190631, EPL-2.0, approved, technology.nebula.nattable
 p2/orbit/p2.eclipse.plugin/org.eclipse.nebula.widgets.nattable.rap.source/2.6.0.qualifier, EPL-2.0, approved, technology.nebula.nattable
 p2/orbit/p2.eclipse.plugin/org.eclipse.nebula.widgets.nattable.rap/2.6.0.qualifier, EPL-2.0, approved, technology.nebula.nattable
 p2/orbit/p2.eclipse.plugin/org.eclipse.orbit.xml-apis-ext.source/1.0.0.v20240917-0534, EPL-2.0, approved, tools.orbit
