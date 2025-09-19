@@ -59,7 +59,7 @@
       <repository location="https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/milestone/latest"/>
     </location>
       <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-          <repository location="https://download.eclipse.org/nattable/snapshots/latest/repository"/>
+          <repository location="https://download.eclipse.org/nattable/releases/2.6.0/repository/"/>
           <unit id="org.eclipse.nebula.widgets.nattable.core.feature.feature.group" version="0.0.0"/>
           <unit id="org.eclipse.nebula.widgets.nattable.core.feature.source.feature.group" version="0.0.0"/>
           <unit id="org.eclipse.nebula.widgets.nattable.extension.glazedlists.feature.feature.group" version="0.0.0"/>
