@@ -259,39 +259,22 @@
             </distributionManagement>
         </profile>
 
-        <!-- The profiles for publishing to Maven Central -->
-        <profile>
-          <id>skip-deploy</id>
-          <activation>
-            <file>
-              <missing>pom.xml</missing>
-            </file>
-          </activation>
-          <properties>
-            <maven.deploy.skip>true</maven.deploy.skip>
-          </properties>
-        </profile>
-        
+        <!-- The profile for publishing to Maven Central -->
         <profile>
             <id>maven-publish</id>
 
-            <distributionManagement>
-                <snapshotRepository>
-                    <id>ossrh</id>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-                </snapshotRepository>
-                <repository>
-                    <id>ossrh</id>
-                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-                </repository>
-            </distributionManagement>
-  
             <build>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.6</version>
+                        <version>3.2.8</version>
+                        <configuration>
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                        </configuration>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
@@ -301,6 +284,20 @@
                                 </goals>
                             </execution>
                         </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.8.0</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                            <excludeArtifacts>
+                                <excludeArtifact>org.eclipse.nebula.widgets.nattable.rap.examples</excludeArtifact>
+                                <excludeArtifact>org.eclipse.nebula.widgets.nattable.rap.updatesite</excludeArtifact>
+                                <excludeArtifact>target-platform-rap</excludeArtifact>
+                            </excludeArtifacts>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>

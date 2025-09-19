@@ -1,0 +1,75 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    
+    <parent>
+        <groupId>org.eclipse.nebula.widgets.nattable</groupId>
+        <artifactId>parent-rap</artifactId>
+        <version>2.6.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>org.eclipse.nebula.widgets.nattable.rap</artifactId>
+    <packaging>eclipse-plugin</packaging>
+    
+    <name>Nebula NatTable RAP</name>
+    <description>Nebula NatTable RAP</description>
+    <url>https://projects.eclipse.org/projects/technology.nebula.nattable</url>
+    
+    <licenses>
+        <license>
+            <name>Eclipse Public License - v 2.0</name>
+            <url>https://www.eclipse.org/legal/epl-2.0/</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Dirk Fauth</name>
+            <email>dirk.fauth@googlemail.com</email>
+        </developer>
+    </developers>
+  
+    <scm>
+        <connection>scm:git:git://github.com/eclipse-nebula-nattable/nattable-rap.git</connection>
+        <developerConnection>scm:git:https://github.com/eclipse-nebula-nattable/nattable-rap.git</developerConnection>
+        <url>https://github.com/eclipse-nebula-nattable/nattable-rap.git</url>
+    </scm>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.eclipse.nebula.widgets.nattable</groupId>
+            <artifactId>org.eclipse.nebula.widgets.nattable.core</artifactId>
+            <version>2.6.0</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy</artifactId>
+            <version>1.17.7</version>
+        </dependency>
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy-agent</artifactId>
+            <version>1.17.7</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.eclipse.rap</groupId>
+            <artifactId>org.eclipse.rap.rwt</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.rap</groupId>
+            <artifactId>org.eclipse.rap.jface</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.rap</groupId>
+            <artifactId>org.eclipse.rap.filedialog</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+    </dependencies>
+</project>
